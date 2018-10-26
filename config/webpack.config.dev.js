@@ -185,6 +185,24 @@ module.exports = {
         include: paths.appSrc,
       },
       {
+          test: /\.scss$/,
+          exclude: [/\.js$/, /\.html$/, /\.json$/, /\.scss$/,],
+          use: [
+            {
+                loader: "style-loader"
+            },
+            {
+                loader: "css-loader"
+            },
+            {
+                loader: "sass-loader",
+                options: {
+                    includePaths: ["/home/axy/Documents/Projects/simple-project-tracker/src/styles"]
+                }
+            }
+          ]
+      },
+      {
         // "oneOf" will traverse all following loaders until one will
         // match the requirements. When no loader matches it will fall
         // back to the "file" loader at the end of the loader list.

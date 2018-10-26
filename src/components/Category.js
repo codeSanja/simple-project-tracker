@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Card from "./Card";
 
-import '../styles/Category.css'
+import '../styles/Category.scss'
 
 class Category extends Component {
     render() {

@@ -5,23 +5,29 @@ import Card from "./Card";
 import '../styles/Category.scss'
 
 class Category extends Component {
+
+    printCards(cards){
+        return cards.map(function(name, index){
+            return <Card key={index} />
+        })
+    }
     render() {
-        const { categoryName } = this.props;
+        const { categoryName, cards } = this.props;
 
         return (
             <div className="card-category">
                 <h4 className="title">{categoryName}</h4>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                <div className="cards">
+                    {this.printCards(cards)}
+                </div>
             </div>
         );
     }
 }
 
 Category.propTypes = {
-    categoryName: PropTypes.string.isRequired
+    categoryName: PropTypes.string.isRequired,
+    cards: PropTypes.array.isRequired
 };
 
 export default Category;

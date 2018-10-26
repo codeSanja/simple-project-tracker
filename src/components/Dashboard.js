@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Category from './Category'
 
 import '../styles/Dashboard.scss';
+import cards from '../db/cards'
 
 class Dashboard extends Component {
     render() {
@@ -9,11 +10,11 @@ class Dashboard extends Component {
             <div className="dashboard">
                 <div className="header">header</div>
                 <div className="categories">
-                    <Category categoryName="unopened"/>
-                    <Category categoryName="in-progress"/>
-                    <Category categoryName="in-qa"/>
-                    <Category categoryName="in-debugging"/>
-                    <Category categoryName="finished"/>
+                    <Category categoryName="unopened" cards={cards.unopened} />
+                    <Category categoryName="in-progress" cards={cards.inProgress} />
+                    <Category categoryName="in-qa" cards={cards.inQa} />
+                    <Category categoryName="in-debugging" cards={cards.inDebugging} />
+                    <Category categoryName="finished" cards={cards.finished} />
                 </div>
                 <div className="footer">footer</div>
             </div>

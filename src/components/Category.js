@@ -12,7 +12,8 @@ class Category extends Component {
 
     onDrop(ev) {
         var data = ev.dataTransfer.getData("text");
-        ev.target.appendChild(document.getElementById(data));
+        const target = (ev.target.className === 'card') ? ev.target.parentElement : ev.target;
+        target.appendChild(document.getElementById(data));
     }
 
     printCards(cards){
@@ -29,8 +30,7 @@ class Category extends Component {
                 <div className="cards"
                     id={categoryName}
                     onDrop={(event) => this.onDrop(event)}
-                    onDragOver={(event) => this.onDragOver(event)}
-                    onDragEnd={this.onDragEnd}>
+                    onDragOver={(event) => this.onDragOver(event)}>
                         {this.printCards(cards)}
                 </div>
             </div>

@@ -1,0 +1,23 @@
+.dashboard {
+    display: grid;
+}
+
+.header {
+    height: 100px;
+    border: solid 1px lightblue;
+}
+
+.categories{
+    display: grid;
+}
+
+.card-category {
+    display: flex;
+    flex-direction: column;
+    border: solid 1px gray;
+}
+
+.footer {
+    height: 100px;
+    border: solid 1px darkblue;
+}

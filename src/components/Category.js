@@ -6,9 +6,19 @@ import '../styles/Category.scss'
 
 class Category extends Component {
 
+    allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        ev.target.appendChild(document.getElementById(data));
+    }
+
     printCards(cards){
         return cards.map(function(name, index){
-            return <Card key={index} />
+            return <Card id={index} key={index} />
         })
     }
     render() {
@@ -17,7 +27,7 @@ class Category extends Component {
         return (
             <div className="card-category">
                 <h4 className="title">{categoryName}</h4>
-                <div className="cards">
+                <div className="cards" id={categoryName}  onDrop={this.drop} onDragOver={this.allowDrop}>
                     {this.printCards(cards)}
                 </div>
             </div>

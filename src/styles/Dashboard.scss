@@ -18,9 +18,12 @@
 
 @media screen and (min-width: 720px) {
     .categories {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
-        min-width: 280px;
+        grid-template-columns: 33% 33% 33%;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .categories {
+        grid-template-columns: 20% 20% 20% 20% 20%;
     }
 }

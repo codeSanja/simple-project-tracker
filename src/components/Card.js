@@ -11,7 +11,7 @@ class Card extends Component {
         const { id } = this.props;
 
         return (
-            <div className="card" id={id}  draggable="true" onDragStart={this.drag}>
+            <div className="card" id={id}  draggable onDragStart={(event) => this.drag(event)}>
                 <div className="title">Title of the card</div>
                 <div className="task">Tekst of the task</div>
             </div>

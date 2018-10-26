@@ -6,12 +6,12 @@ import '../styles/Category.scss'
 
 class Category extends Component {
 
-    allowDrop(ev) {
+    onDragOver(ev) {
         ev.preventDefault();
     }
 
-    drop(ev) {
-        ev.preventDefault();
+    onDrop(ev) {
+        // ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
         ev.target.appendChild(document.getElementById(data));
     }
@@ -27,8 +27,12 @@ class Category extends Component {
         return (
             <div className="card-category">
                 <h4 className="title">{categoryName}</h4>
-                <div className="cards" id={categoryName}  onDrop={this.drop} onDragOver={this.allowDrop}>
-                    {this.printCards(cards)}
+                <div className="cards"
+                    id={categoryName}
+                    onDrop={(event) => this.onDrop(event)}
+                    onDragOver={(event) => this.onDragOver(event)}
+                    onDragEnd={this.onDragEnd}>
+                        {this.printCards(cards)}
                 </div>
             </div>
         );

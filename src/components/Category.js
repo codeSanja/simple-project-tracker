@@ -11,14 +11,13 @@ class Category extends Component {
     }
 
     onDrop(ev) {
-        // ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
         ev.target.appendChild(document.getElementById(data));
     }
 
     printCards(cards){
         return cards.map(function(name, index){
-            return <Card id={index} key={index} />
+            return <Card id={name} key={index} />
         })
     }
     render() {

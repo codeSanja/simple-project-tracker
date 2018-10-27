@@ -4,21 +4,22 @@ import '../styles/Card.scss';
 
 class Card extends Component {
     onDragStart(ev) {
-        ev.dataTransfer.setData("text", ev.target.id);
-    }
+        if(ev.target.className !== 'card'){
+            return;
+        }
 
-    onDragEnd(ev) {
-        ev.preventDefault();
+        ev.dataTransfer.effectAllowed = 'move';
+        ev.dataTransfer.setData("text", ev.target.id);
     }
 
     render() {
         const { id } = this.props;
 
         return (
-            <div className="card" id={id}  draggable onDragStart={(event) => this.onDragStart(event)}  onDragEnd={this.onDragEnd}>
+            <div className="card" id={id}  draggable onDragStart={(event) => this.onDragStart(event)}>
                 <div className="title">Title of the card</div>
                 <div className="task">Tekst of the task</div>
-                <div className="task">ID :: {id}</div>
+                <div className="id">ID :: {id}</div>
             </div>
         );
     }

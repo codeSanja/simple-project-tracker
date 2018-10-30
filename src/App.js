@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './components/layout/Home';
-import Dashboard from './components/layout/Dashboard';
-import Lost from './components/layout/Lost';
+import Home from './components/content/Home';
+import Dashboard from './components/content/Dashboard';
+import Lost from './components/content/Lost';
 
 class App extends Component {
   render() {

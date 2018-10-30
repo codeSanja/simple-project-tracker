@@ -7,6 +7,10 @@ import { Link } from "react-router-dom";
 import { withAuth } from "@okta/okta-react";
 
 export default withAuth(class Dashboard extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
             <div className="dashboard">
@@ -15,6 +19,7 @@ export default withAuth(class Dashboard extends Component {
 
                     <div>
                         <Link to='/'>Home</Link><br/>
+                        <button onClick={() => this.props.auth.logout('/')}>Logout</button>
                     </div>
 
                 </div>

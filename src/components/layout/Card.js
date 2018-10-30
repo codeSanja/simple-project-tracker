@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import '../styles/Card.scss';
+import '../../styles/Card.scss';
 
 class Card extends Component {
     onDragStart(ev) {

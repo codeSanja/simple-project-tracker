@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Category from './Category'
 
-import '../styles/Dashboard.scss';
-import cards from '../db/cards'
+import '../../styles/Dashboard.scss';
+import cards from '../../db/cards'
 
 class Dashboard extends Component {
     render() {

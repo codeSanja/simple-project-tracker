@@ -3,15 +3,9 @@ import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
 
 export default withAuth(class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { authenticated: null };
-        this.checkAuthentication = this.checkAuthentication.bind(this);
-        this.login = this.login.bind(this);
-        this.logout = this.logout.bind(this);
-    }
+    state = { authenticated: null };
 
-    async checkAuthentication() {
+    checkAuthentication = async() => {
         const authenticated = await this.props.auth.isAuthenticated();
         if (authenticated !== this.state.authenticated) {
             this.setState({ authenticated });
@@ -26,11 +20,11 @@ export default withAuth(class Home extends Component {
         this.checkAuthentication();
     }
 
-    async login() {
+    login = () => {
         this.props.auth.login('/dashboard');
     }
 
-    async logout() {
+    logout = () => {
         this.props.auth.logout('/');
     }
 

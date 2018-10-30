@@ -7,8 +7,17 @@ import '../../styles/Dashboard.scss';
 import cards from '../../db/cards'
 
 export default withAuth(class Dashboard extends Component {
-    constructor(props) {
-        super(props);
+    state = {
+        currentUserName: '',
+        currentUserEmail: ''
+    };
+
+    componentDidMount() {
+        const oktaTokenStorage = JSON.parse(localStorage['okta-token-storage']);
+        this.setState({
+            currentUserName: oktaTokenStorage.idToken.claims.name,
+            currentUserEmail: oktaTokenStorage.idToken.claims.email
+        });
     }
 
     render() {
@@ -19,6 +28,8 @@ export default withAuth(class Dashboard extends Component {
 
                     <div>
                         <Link to='/'>Home</Link><br/>
+                        <div>Welcome, {this.state.currentUserName}!</div>
+                        <div>{this.state.currentUserEmail}</div>
                         <button onClick={() => this.props.auth.logout('/')}>Logout</button>
                     </div>
 

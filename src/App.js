@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom';
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 import Home from './components/content/Home';
 import Dashboard from './components/content/Dashboard';
@@ -18,9 +18,6 @@ const onAuthRequired = ({history}) => {
 }
 
 class App extends Component {
-
-
-
   render() {
     return (
       <Router>
@@ -29,6 +26,9 @@ class App extends Component {
                     redirect_uri={config.redirect_uri}
                     onAuthRequired={onAuthRequired}
           >
+              <div className="main-header">
+                  Main Header
+              </div>
               <Switch>
                   <Route exact path="/" component={Home} />
                   <SecureRoute path="/dashboard" component={Dashboard} />
@@ -36,6 +36,7 @@ class App extends Component {
                   <Route path='/implicit/callback' component={ImplicitCallback}/>
                   <Route component={Lost} />
               </Switch>
+              <div className="main-footer">Main Footer</div>
           </Security>
       </Router>
     );

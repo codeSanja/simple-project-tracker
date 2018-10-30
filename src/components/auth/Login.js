@@ -3,11 +3,11 @@ import { Redirect } from 'react-router-dom';
 import OktaSignInWidget from './OktaSignInWidget';
 import { withAuth } from '@okta/okta-react';
 
+import '../../styles/Login.scss';
+
 export default withAuth(class Login extends Component {
     constructor(props) {
         super(props);
-        this.onSuccess = this.onSuccess.bind(this);
-        this.onError = this.onError.bind(this);
         this.state = {
             authenticated: null
         };
@@ -25,7 +25,7 @@ export default withAuth(class Login extends Component {
         this.checkAuthentication();
     }
 
-    onSuccess(res) {
+    onSuccess = (res) => {
         if (res.status === 'SUCCESS') {
             return this.props.auth.redirect({
                 sessionToken: res.session.token
@@ -37,7 +37,7 @@ export default withAuth(class Login extends Component {
         }
     }
 
-    onError(err) {
+    onError = (err) => {
         console.log('error logging in', err);
     }
 

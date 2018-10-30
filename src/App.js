@@ -9,9 +9,7 @@ class App extends Component {
     return (
       <Router>
           <Switch>
-              <Route exact path="/" render={(props) => {
-                  return <Home {...props} />
-              }} />
+              <Route exact path="/" component={Home} />
               <Route exact path="/dashboard" component={Dashboard} />
               <Route component={Lost} />
           </Switch>

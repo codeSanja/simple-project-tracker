@@ -11,7 +11,11 @@ class Dashboard extends Component {
             <div className="dashboard">
                 <div className="header">
                     header
-                    <Link to="/">Home</Link>
+
+                    <div>
+                        <Link to='/'>Home</Link><br/>
+                    </div>
+
                 </div>
                 <div className="categories">
                     <Category categoryName="unopened" cards={cards.unopened} />

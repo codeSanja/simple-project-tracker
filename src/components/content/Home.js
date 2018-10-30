@@ -1,16 +1,51 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withAuth } from '@okta/okta-react';
 
-class Home extends Component {
+export default withAuth(class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { authenticated: null };
+        this.checkAuthentication = this.checkAuthentication.bind(this);
+        this.login = this.login.bind(this);
+        this.logout = this.logout.bind(this);
+    }
+
+    async checkAuthentication() {
+        const authenticated = await this.props.auth.isAuthenticated();
+        if (authenticated !== this.state.authenticated) {
+            this.setState({ authenticated });
+        }
+    }
+
+    async componentDidMount() {
+        this.checkAuthentication();
+    }
+
+    async componentDidUpdate() {
+        this.checkAuthentication();
+    }
+
+    async login() {
+        this.props.auth.login('/dashboard');
+    }
+
+    async logout() {
+        this.props.auth.logout('/');
+    }
+
     render() {
+        if (this.state.authenticated === null) return null;
+
+        const button = this.state.authenticated ?
+            <button onClick={this.logout}>Logout</button> :
+            <button onClick={this.login}>Login</button>;
+
         return (
             <div>
-                Home Page (login)
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to='/'>Home</Link><br/>
+                {button}
             </div>
         );
     }
-}
-
-
-export default Home;
+});

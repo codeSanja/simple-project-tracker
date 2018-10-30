@@ -4,8 +4,9 @@ import Category from './Category'
 import '../../styles/Dashboard.scss';
 import cards from '../../db/cards'
 import { Link } from "react-router-dom";
+import { withAuth } from "@okta/okta-react";
 
-class Dashboard extends Component {
+export default withAuth(class Dashboard extends Component {
     render() {
         return (
             <div className="dashboard">
@@ -28,6 +29,6 @@ class Dashboard extends Component {
             </div>
         );
     }
-}
+});
 
-export default Dashboard;
+// export default Dashboard;

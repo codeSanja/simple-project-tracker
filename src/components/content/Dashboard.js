@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
+import { withAuth } from "@okta/okta-react";
 import Category from './Category'
 
 import '../../styles/Dashboard.scss';
 import cards from '../../db/cards'
-import { Link } from "react-router-dom";
-import { withAuth } from "@okta/okta-react";
 
 export default withAuth(class Dashboard extends Component {
     constructor(props) {

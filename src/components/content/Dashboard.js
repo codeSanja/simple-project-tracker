@@ -3,12 +3,16 @@ import Category from './Category'
 
 import '../../styles/Dashboard.scss';
 import cards from '../../db/cards'
+import { Link } from "react-router-dom";
 
 class Dashboard extends Component {
     render() {
         return (
             <div className="dashboard">
-                <div className="header">header</div>
+                <div className="header">
+                    header
+                    <Link to="/">Home</Link>
+                </div>
                 <div className="categories">
                     <Category categoryName="unopened" cards={cards.unopened} />
                     <Category categoryName="in-progress" cards={cards.inProgress} />

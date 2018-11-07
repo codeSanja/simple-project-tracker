@@ -1,7 +1,7 @@
 {
-  "unopened": [11,21],
+  "unopened": [31,21,11],
   "inProgress": [12],
-  "inQa": [],
+  "inQa": [13],
   "inDebugging": [14],
   "finished": [15]
 }

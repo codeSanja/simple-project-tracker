@@ -10,7 +10,11 @@ export default withAuth(class Dashboard extends Component {
     state = {
         currentUserName: '',
         currentUserEmail: '',
-        cards: []
+        cards: [],
+        dragData: {
+            startedDrag: true,
+            fromCategory: '',
+        }
     }
 
     componentWillMount() {
@@ -33,8 +37,12 @@ export default withAuth(class Dashboard extends Component {
 
     }
 
+    updateDragData = (dragData) => {
+        this.setState = { dragData }
+    }
+
     render() {
-        const { currentUserName, currentUserEmail, cards } = this.state
+        const { currentUserName, currentUserEmail, cards, dragData } = this.state
 
         return (
             <div className="dashboard">
@@ -50,11 +58,11 @@ export default withAuth(class Dashboard extends Component {
 
                 </div>
                 <div className="categories">
-                    <Category categoryName="unopened" cards={cards.unopened} />
-                    <Category categoryName="in-progress" cards={cards.inProgress} />
-                    <Category categoryName="in-qa" cards={cards.inQa} />
-                    <Category categoryName="in-debugging" cards={cards.inDebugging} />
-                    <Category categoryName="finished" cards={cards.finished} />
+                    <Category categoryName="unopened" cards={cards.unopened} updateDragData={this.updateDragData} dragData={dragData} />
+                    <Category categoryName="in-progress" cards={cards.inProgress} updateDragData={this.updateDragData} dragData={dragData} />
+                    {/*<Category categoryName="in-qa" cards={cards.inQa} updateStartDrag={this.updateStartDrag} />*/}
+                    {/*<Category categoryName="in-debugging" cards={cards.inDebugging} updateStartDrag={this.updateStartDrag} />*/}
+                    {/*<Category categoryName="finished" cards={cards.finished} updateStartDrag={this.updateStartDrag} />*/}
                 </div>
                 <div className="footer">footer</div>
             </div>

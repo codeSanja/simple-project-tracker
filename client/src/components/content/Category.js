@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isUndefined } from 'underscore';
 import Card from "./Card";
 
 import '../../styles/Category.scss'
@@ -31,7 +32,7 @@ class Category extends Component {
     }
 
     printCards(cards){
-        if(cards.length === 0){
+        if(isUndefined(cards) || cards.length === 0){
             return
         }
 

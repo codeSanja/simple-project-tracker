@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Link } from "react-router-dom";
 import { withAuth } from "@okta/okta-react";
 import Category from './Category'
@@ -15,17 +16,21 @@ export default withAuth(class Dashboard extends Component {
     componentWillMount() {
         const oktaTokenStorage = JSON.parse(localStorage['okta-token-storage']);
         const { name: currentUserName, email: currentUserEmail } = oktaTokenStorage.idToken.claims
+        const params = {
+            params: {
+                email: currentUserEmail
+            }
+        }
 
-        debugger
-        this.setState({
-            currentUserName,
-            currentUserEmail,
-            cards: this.getCardsFromDB(currentUserEmail)
-        })
-    }
+        axios.get(`/cards`, params  )
+            .then(res => {
+                this.setState({
+                    currentUserName,
+                    currentUserEmail,
+                    cards: res.data
+                })
+            })
 
-    getCardsFromDB = (email) => {
-        return require(`../../db/${email}`);
     }
 
     render() {

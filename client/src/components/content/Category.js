@@ -42,6 +42,11 @@ class Category extends Component {
         const target = this.getCardsElement(ev);
         (!isNaN(data)) ? target.appendChild(document.getElementById(data)) : ev.preventDefault();
 
+        //update drag flag
+        let { dragData } = this.props;
+        dragData.startedDrag = true;
+        this.props.updateDragData(dragData)
+
         //update db
         const { categoryName, cards } = this.props;
         this.messWithCards(categoryName, cards)
@@ -50,8 +55,7 @@ class Category extends Component {
 
     messWithCards = (categoryName, cards) => {
         console.log('cards: ',cards)
-        console.log('toCategory (categoryName): ',categoryName)
-        console.log('fromCategory: ',this.props.dragData)
+        console.log(`${this.props.dragData.fromCategory} ---> ${categoryName}`)
     }
 
     printCards(cards){

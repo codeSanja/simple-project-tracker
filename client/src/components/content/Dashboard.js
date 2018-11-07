@@ -60,9 +60,9 @@ export default withAuth(class Dashboard extends Component {
                 <div className="categories">
                     <Category categoryName="unopened" cards={cards.unopened} updateDragData={this.updateDragData} dragData={dragData} />
                     <Category categoryName="in-progress" cards={cards.inProgress} updateDragData={this.updateDragData} dragData={dragData} />
-                    {/*<Category categoryName="in-qa" cards={cards.inQa} updateStartDrag={this.updateStartDrag} />*/}
-                    {/*<Category categoryName="in-debugging" cards={cards.inDebugging} updateStartDrag={this.updateStartDrag} />*/}
-                    {/*<Category categoryName="finished" cards={cards.finished} updateStartDrag={this.updateStartDrag} />*/}
+                    <Category categoryName="in-qa" cards={cards.inQa} updateStartDrag={this.updateStartDrag} updateDragData={this.updateDragData} dragData={dragData} />
+                    <Category categoryName="in-debugging" cards={cards.inDebugging} updateStartDrag={this.updateStartDrag} updateDragData={this.updateDragData} dragData={dragData}  />
+                    <Category categoryName="finished" cards={cards.finished} updateStartDrag={this.updateStartDrag} updateDragData={this.updateDragData} dragData={dragData}  />
                 </div>
                 <div className="footer">footer</div>
             </div>

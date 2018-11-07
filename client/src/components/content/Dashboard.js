@@ -4,23 +4,33 @@ import { withAuth } from "@okta/okta-react";
 import Category from './Category'
 
 import '../../styles/Dashboard.scss';
-import cards from '../../db/cards'
 
 export default withAuth(class Dashboard extends Component {
     state = {
         currentUserName: '',
-        currentUserEmail: ''
-    };
+        currentUserEmail: '',
+        cards: []
+    }
 
-    componentDidMount() {
+    componentWillMount() {
         const oktaTokenStorage = JSON.parse(localStorage['okta-token-storage']);
+        const { name: currentUserName, email: currentUserEmail } = oktaTokenStorage.idToken.claims
+
+        debugger
         this.setState({
-            currentUserName: oktaTokenStorage.idToken.claims.name,
-            currentUserEmail: oktaTokenStorage.idToken.claims.email
-        });
+            currentUserName,
+            currentUserEmail,
+            cards: this.getCardsFromDB(currentUserEmail)
+        })
+    }
+
+    getCardsFromDB = (email) => {
+        return require(`../../db/${email}`);
     }
 
     render() {
+        const { currentUserName, currentUserEmail, cards } = this.state
+
         return (
             <div className="dashboard">
                 <div className="header">
@@ -28,8 +38,8 @@ export default withAuth(class Dashboard extends Component {
 
                     <div>
                         <Link to='/'>Home</Link><br/>
-                        <div>Welcome, {this.state.currentUserName}!</div>
-                        <div>{this.state.currentUserEmail}</div>
+                        <div>Welcome, {currentUserName}!</div>
+                        <div>{currentUserEmail}</div>
                         <button onClick={() => this.props.auth.logout('/')}>Logout</button>
                     </div>
 

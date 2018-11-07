@@ -31,6 +31,10 @@ class Category extends Component {
     }
 
     printCards(cards){
+        if(cards.length === 0){
+            return
+        }
+
         return cards.map(function(name, index){
             return <Card id={name} key={index} />
         })

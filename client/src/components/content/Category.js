@@ -25,10 +25,10 @@ class Category extends Component {
 
         //figure out where the card is coming from
         let { dragData } = this.props;
-        if(dragData.startedDrag){
+        if(dragData.shouldSaveInitialCategory){
 
-            dragData.startedDrag = false;
-            dragData.fromCategory = ev.currentTarget.id;
+            dragData.initialCategory = ev.currentTarget.id;
+            dragData.shouldSaveInitialCategory = false;
             this.props.updateDragData(dragData)
         }
 
@@ -41,7 +41,7 @@ class Category extends Component {
 
         //update drag flag
         let { dragData } = this.props;
-        dragData.startedDrag = true;
+        dragData.shouldSaveInitialCategory = true;
         this.props.updateDragData(dragData)
 
         //update db
@@ -52,7 +52,7 @@ class Category extends Component {
 
     messWithCards = (categoryName, cards) => {
         console.log('cards: ',cards)
-        console.log(`${this.props.dragData.fromCategory} ---> ${categoryName}`)
+        console.log(`${this.props.dragData.initialCategory} ---> ${categoryName}`)
     }
 
     printCards(cards){

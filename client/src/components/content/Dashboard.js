@@ -12,8 +12,8 @@ export default withAuth(class Dashboard extends Component {
         currentUserEmail: '',
         cards: [],
         dragData: {
-            startedDrag: true,
-            fromCategory: '',
+            shouldSaveInitialCategory: true,
+            initialCategory: '',
         }
     }
 

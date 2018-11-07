@@ -23,12 +23,9 @@ class Category extends Component {
     onDragOver(ev) {
         ev.preventDefault();
 
+        //figure out where the card is coming from
         let { dragData } = this.props;
-        console.log('dragData.startedDrag', dragData.startedDrag)
         if(dragData.startedDrag){
-            this.setState({
-                fromCategory: ev.currentTarget.id
-            })
 
             dragData.startedDrag = false;
             dragData.fromCategory = ev.currentTarget.id;

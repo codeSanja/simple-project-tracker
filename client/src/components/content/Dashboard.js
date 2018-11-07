@@ -38,7 +38,6 @@ export default withAuth(class Dashboard extends Component {
     }
 
     updateDragData = (dragData) => {
-    console.log('*** dragData ', dragData)
         this.setState = { dragData }
     }
 

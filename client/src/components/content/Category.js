@@ -24,9 +24,9 @@ class Category extends Component {
         ev.preventDefault();
 
         //figure out where the card is coming from
-        let { dragData } = this.props;
-        if(dragData.shouldSaveInitialCategory){
+        const { dragData } = this.props;
 
+        if(dragData.shouldSaveInitialCategory){
             dragData.initialCategory = ev.currentTarget.id;
             dragData.shouldSaveInitialCategory = false;
             this.props.updateDragData(dragData)
@@ -41,8 +41,8 @@ class Category extends Component {
 
         //update drag flag
         let { dragData } = this.props;
-        dragData.shouldSaveInitialCategory = true;
-        this.props.updateDragData(dragData)
+
+        this.props.updateDragData({shouldSaveInitialCategory: true})
 
         //update db
         const { categoryName, cards } = this.props;

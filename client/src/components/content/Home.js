@@ -40,10 +40,7 @@ export default withAuth(class Home extends Component {
                 <Link to='/dashboard'>Dashboard</Link><br/>
                 <button onClick={this.logout}>Logout</button>
             </div> :
-            <div>
-                <button onClick={this.login}>Login</button>
-                <button onClick={this.register}>Register</button>
-            </div>
+                <button onClick={this.login}>Login / Register</button>
 
 
 

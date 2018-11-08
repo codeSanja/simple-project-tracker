@@ -40,9 +40,9 @@ class Category extends Component {
             return
         }
 
-        return cards.map((name, index) => {
+        return cards.map((card, index) => {
             return <Card
-                id={name}
+                card={card}
                 key={index}
                 categoryName={categoryName}
                 setInitialCategoryName={this.setInitialCategoryName}

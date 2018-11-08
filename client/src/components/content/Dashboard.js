@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import { isEmpty, isUndefined } from "underscore"
+import { isEmpty, isUndefined, groupBy } from "underscore"
+import _ from "lodash"
 import { withAuth } from "@okta/okta-react";
 import Category from './Category'
 
@@ -22,37 +23,50 @@ export default withAuth(class Dashboard extends Component {
     componentDidMount() {
         const oktaTokenStorage = JSON.parse(localStorage['okta-token-storage'])
         const { name: currentUserName, email: currentUserEmail } = oktaTokenStorage.idToken.claims
+        const cards = this.getCards(currentUserEmail)
+
+        const categorised = groupBy(cards, 'category')
+
         this.setState({
             currentUserName,
-            currentUserEmail
+            currentUserEmail,
+            // cards
+            cards: categorised
         })
-
-        const cards = this.getCardsFromLocalStorage(currentUserEmail)
-        !isEmpty(cards) ? this.setState({ cards }) : this.putCardsFromDbToLocalStorage(currentUserEmail)
     }
 
+    getCards = (email) => {
+        const cards = this.getCardsFromLocalStorage(email)
+        return !isEmpty(cards) ? cards : this.putCardsFromDbToLocalStorage(email)
+    }
     updateCards = (initialCategory, newCategory, cardId) => {
         let { currentUserEmail, cards } = this.state
 
         console.log('updateCards :: ', `${initialCategory} ---> ${newCategory}`, cardId)
 
-        this.moveCard(initialCategory, newCategory, cardId, cards)
-        this.saveCardsInLocalStorage(currentUserEmail, cards)
-        this.saveCardsInDb(currentUserEmail, cards)
+        // ungroup cards
+       let flattenCards =  _.flatten(Object.values(cards))
+       const cardIndex = _.findIndex(flattenCards, (card) =>  card.id == cardId )
+       flattenCards[cardIndex].category = newCategory;
+
+
+        // this.moveCard(newCategory, cardIndex)
+        this.saveCardsInLocalStorage(currentUserEmail, flattenCards)
+        this.saveCardsInDb(currentUserEmail, flattenCards)
         // this.setState({cards}); //this causes breaking
     }
 
-    moveCard = (initialCategory, newCategory, cardId, cards) => {
-        var index = cards[initialCategory].indexOf(parseInt(cardId));
-        if (index > -1) {
-            cards[initialCategory].splice(index, 1);
-        }
-
-        const hasCard = cards[newCategory].some(id => id === cardId);
-        if(!hasCard){
-            cards[newCategory].push(parseInt(cardId));
-        }
-    }
+    // moveCard = (newCategory, index) => {
+    //     // var index = cards[initialCategory].indexOf(parseInt(cardId));
+    //     // if (index > -1) {
+    //     //     cards[initialCategory].splice(index, 1);
+    //     // }
+    //     //
+    //     // const hasCard = cards[newCategory].some(id => id === cardId);
+    //     // if(!hasCard){
+    //     //     cards[newCategory].push(parseInt(cardId));
+    //     // }
+    // }
 
     printCategories = (cards) => {
         return Object.keys(cards).map((name, index) => {
@@ -78,7 +92,10 @@ export default withAuth(class Dashboard extends Component {
         return axios.get(`/cards`, { params: { email: email }})
             .then(res => {
                 const cardsFromDb = res.data;
-                this.setState({ cards: cardsFromDb });
+
+                // TODO duplicate code
+                const categorised = groupBy(cardsFromDb, 'category')
+                this.setState({ cards: categorised });
                 return cardsFromDb;
                 // localStorage[`spt-cards-${email}`] = JSON.stringify(cardsFromDb)
             }).catch(err => {

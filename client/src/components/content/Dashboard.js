@@ -28,17 +28,15 @@ export default withAuth(class Dashboard extends Component {
         })
 
         const cards = this.getCardsFromLocalStorage(currentUserEmail)
-
         !isEmpty(cards) ? this.setState({ cards }) : this.putCardsFromDbToLocalStorage(currentUserEmail)
-            // this.getCardsFromDb(currentUserEmail).then((cards) => this.saveCardsInLocalStorage(currentUserEmail, cards));
     }
 
     updateCards = (initialCategory, newCategory, cardId) => {
         let { currentUserEmail, cards } = this.state
 
-
         console.log('updateCards :: ', `${initialCategory} ---> ${newCategory}`, cardId)
 
+        // move the card
         var index = cards[initialCategory].indexOf(parseInt(cardId));
         if (index > -1) {
             cards[initialCategory].splice(index, 1);
@@ -48,27 +46,10 @@ export default withAuth(class Dashboard extends Component {
         if(!hasCard){
             cards[newCategory].push(parseInt(cardId));
         }
+        // end of move the card
 
-
-        console.log(`cards["${initialCategory}"] :: `, cards[initialCategory])
-        console.log(`cards["${newCategory}"] :: `, cards[newCategory])
-
-
-        //update in local storage
         this.saveCardsInLocalStorage(currentUserEmail, cards)
-
-        // update in db
-        axios.post(`/cards`, {
-            cards,
-            email: currentUserEmail
-        })
-        .then(res => {
-            console.log("res from post request ::", res)
-        })
-        .catch(error => {
-            console.error(error)
-        })
-
+        this.saveCardsInDb(currentUserEmail, cards)
     }
 
     printCategories = (cards) => {
@@ -101,6 +82,19 @@ export default withAuth(class Dashboard extends Component {
             }).catch(err => {
                 console.error(err);
             })
+    }
+
+    saveCardsInDb = (email, cards) => {
+        return axios.post(`/cards`, {
+            cards,
+            email
+        })
+        .then(res => {
+            console.log("res from post request ::", res)
+        })
+        .catch(error => {
+            console.error(error)
+        })
     }
 
     putCardsFromDbToLocalStorage = (email) => {

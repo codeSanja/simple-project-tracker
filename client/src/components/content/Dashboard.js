@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import { isEmpty } from "underscore"
 import { withAuth } from "@okta/okta-react";
 import Category from './Category'
 
@@ -19,22 +20,17 @@ export default withAuth(class Dashboard extends Component {
     }
 
     componentDidMount() {
-        const oktaTokenStorage = JSON.parse(localStorage['okta-token-storage']);
+        const oktaTokenStorage = JSON.parse(localStorage['okta-token-storage'])
         const { name: currentUserName, email: currentUserEmail } = oktaTokenStorage.idToken.claims
-        const params = {
-            params: {
-                email: currentUserEmail
-            }
-        }
+        this.setState({
+            currentUserName,
+            currentUserEmail
+        })
 
-        axios.get(`/cards`, params)
-            .then(res => {
-                this.setState({
-                    currentUserName,
-                    currentUserEmail,
-                    cards: res.data
-                })
-            })
+        // TODO put in constants `spt-cards-${currentUserEmail}`
+        const cards = JSON.parse(localStorage[`spt-cards-${currentUserEmail}`]);
+
+        isEmpty(cards) ? this.getCardsFromDb(currentUserEmail) : this.setState({ cards })
     }
 
     updateCards = (initialCategory, newCategory, cardId) => {
@@ -82,8 +78,19 @@ export default withAuth(class Dashboard extends Component {
         })
     }
 
+    getCardsFromDb = (email) => {
+        return axios.get(`/cards`, { params: { email: email }})
+            .then(res => {
+                const cardsFromDb = res.data;
+                this.setState({ cards: cardsFromDb });
+                localStorage[`spt-cards-${email}`] = JSON.stringify(cardsFromDb)
+            }).catch(err => {
+                console.error(err);
+            })
+    }
+
     render() {
-        const { currentUserName, currentUserEmail, cards, dragData } = this.state
+        const { currentUserName, currentUserEmail, cards } = this.state
 
         return (
             <div className="dashboard">

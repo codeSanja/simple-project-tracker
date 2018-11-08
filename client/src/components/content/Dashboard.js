@@ -36,7 +36,13 @@ export default withAuth(class Dashboard extends Component {
 
         console.log('updateCards :: ', `${initialCategory} ---> ${newCategory}`, cardId)
 
-        // move the card
+        this.moveCard(initialCategory, newCategory, cardId, cards)
+        this.saveCardsInLocalStorage(currentUserEmail, cards)
+        this.saveCardsInDb(currentUserEmail, cards)
+        // this.setState({cards}); //this causes breaking
+    }
+
+    moveCard = (initialCategory, newCategory, cardId, cards) => {
         var index = cards[initialCategory].indexOf(parseInt(cardId));
         if (index > -1) {
             cards[initialCategory].splice(index, 1);
@@ -46,10 +52,6 @@ export default withAuth(class Dashboard extends Component {
         if(!hasCard){
             cards[newCategory].push(parseInt(cardId));
         }
-        // end of move the card
-
-        this.saveCardsInLocalStorage(currentUserEmail, cards)
-        this.saveCardsInDb(currentUserEmail, cards)
     }
 
     printCategories = (cards) => {
@@ -88,9 +90,6 @@ export default withAuth(class Dashboard extends Component {
         return axios.post(`/cards`, {
             cards,
             email
-        })
-        .then(res => {
-            console.log("res from post request ::", res)
         })
         .catch(error => {
             console.error(error)

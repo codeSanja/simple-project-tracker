@@ -58,15 +58,15 @@ export default withAuth(class Dashboard extends Component {
         console.log(`cards["${initialCategory}"] :: `, cards[initialCategory])
         console.log(`cards["${newCategory}"] :: `, cards[newCategory])
 
+        const params = {
+            [`${initialCategory}`]: cards[initialCategory],
+            [`${newCategory}`]: cards[newCategory]
+        }
 
-        // axios.post(`/cards`, params  )
-        //     .then(res => {
-        //         this.setState({
-        //             currentUserName,
-        //             currentUserEmail,
-        //             cards: res.data
-        //         })
-        //     })
+        axios.post(`/cards`, cards)
+            .then(res => {
+                console.log("res from post request ::", res)
+            })
 
     }
 

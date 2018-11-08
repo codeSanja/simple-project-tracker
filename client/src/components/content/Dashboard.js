@@ -49,7 +49,7 @@ export default withAuth(class Dashboard extends Component {
         const { currentUserEmail, cards } = this.state
 
         let flattenCards =  _.flatten(Object.values(cards))
-        const cardIndex = _.findIndex(flattenCards, (card) =>  card.id == cardId )
+        const cardIndex = _.findIndex(flattenCards, (card) =>  card.id === parseInt(cardId) )
         flattenCards[cardIndex].category = newCategory;
 
         this.saveCardsInLocalStorage(currentUserEmail, flattenCards)
@@ -100,10 +100,6 @@ export default withAuth(class Dashboard extends Component {
             console.error(error)
         })
     }
-
-    // putCardsFromDbToLocalStorage = (email) => {
-    //     return this.getCardsFromDb(email).then((cards) => this.saveCardsInLocalStorage(email, cards))
-    // }
 
     render() {
         const { currentUserName, currentUserEmail, cards } = this.state

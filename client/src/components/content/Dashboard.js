@@ -37,36 +37,24 @@ export default withAuth(class Dashboard extends Component {
 
     getCards = (email) => {
         const cards = this.getCardsFromLocalStorage(email)
-        return !isEmpty(cards) ? cards : this.putCardsFromDbToLocalStorage(email)
+
+        if (isEmpty(cards)){
+            return this.getCardsFromDb(email).then((cards) => this.saveCardsInLocalStorage(email, cards))
+        }
+
+        return cards;
     }
+
     updateCards = (initialCategory, newCategory, cardId) => {
-        let { currentUserEmail, cards } = this.state
+        const { currentUserEmail, cards } = this.state
 
-        console.log('updateCards :: ', `${initialCategory} ---> ${newCategory}`, cardId)
+        let flattenCards =  _.flatten(Object.values(cards))
+        const cardIndex = _.findIndex(flattenCards, (card) =>  card.id == cardId )
+        flattenCards[cardIndex].category = newCategory;
 
-        // ungroup cards
-       let flattenCards =  _.flatten(Object.values(cards))
-       const cardIndex = _.findIndex(flattenCards, (card) =>  card.id == cardId )
-       flattenCards[cardIndex].category = newCategory;
-
-
-        // this.moveCard(newCategory, cardIndex)
         this.saveCardsInLocalStorage(currentUserEmail, flattenCards)
         this.saveCardsInDb(currentUserEmail, flattenCards)
-        // this.setState({cards}); //this causes breaking
     }
-
-    // moveCard = (newCategory, index) => {
-    //     // var index = cards[initialCategory].indexOf(parseInt(cardId));
-    //     // if (index > -1) {
-    //     //     cards[initialCategory].splice(index, 1);
-    //     // }
-    //     //
-    //     // const hasCard = cards[newCategory].some(id => id === cardId);
-    //     // if(!hasCard){
-    //     //     cards[newCategory].push(parseInt(cardId));
-    //     // }
-    // }
 
     printCategories = (cards) => {
         return Object.keys(cards).map((name, index) => {
@@ -113,9 +101,9 @@ export default withAuth(class Dashboard extends Component {
         })
     }
 
-    putCardsFromDbToLocalStorage = (email) => {
-        return this.getCardsFromDb(email).then((cards) => this.saveCardsInLocalStorage(email, cards))
-    }
+    // putCardsFromDbToLocalStorage = (email) => {
+    //     return this.getCardsFromDb(email).then((cards) => this.saveCardsInLocalStorage(email, cards))
+    // }
 
     render() {
         const { currentUserName, currentUserEmail, cards } = this.state

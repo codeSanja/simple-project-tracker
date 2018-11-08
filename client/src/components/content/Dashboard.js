@@ -7,17 +7,18 @@ import Category from './Category'
 import '../../styles/Dashboard.scss';
 
 export default withAuth(class Dashboard extends Component {
-    state = {
-        currentUserName: '',
-        currentUserEmail: '',
-        cards: [],
-        dragData: {
-            shouldSaveInitialCategory: true,
-            initialCategory: '',
+
+    constructor(props){
+        super(props)
+
+        this.state = {
+            currentUserName: '',
+            currentUserEmail: '',
+            cards: []
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const oktaTokenStorage = JSON.parse(localStorage['okta-token-storage']);
         const { name: currentUserName, email: currentUserEmail } = oktaTokenStorage.idToken.claims
         const params = {
@@ -37,8 +38,36 @@ export default withAuth(class Dashboard extends Component {
 
     }
 
-    updateDragData = (dragData) => {
-        this.setState = { dragData }
+    updateCards = (initialCategory, newCategory, cardId) => {
+        let { currentUserEmail, cards } = this.state
+
+
+        console.log('updateCards :: ', `${initialCategory} ---> ${newCategory}`, cardId)
+
+        var index = cards[initialCategory].indexOf(parseInt(cardId));
+        if (index > -1) {
+            cards[initialCategory].splice(index, 1);
+        }
+
+        const hasCard = cards[newCategory].some(id => id === cardId);
+        if(!hasCard){
+            cards[newCategory].push(parseInt(cardId));
+        }
+
+
+        console.log(`cards["${initialCategory}"] :: `, cards[initialCategory])
+        console.log(`cards["${newCategory}"] :: `, cards[newCategory])
+
+
+        // axios.post(`/cards`, params  )
+        //     .then(res => {
+        //         this.setState({
+        //             currentUserName,
+        //             currentUserEmail,
+        //             cards: res.data
+        //         })
+        //     })
+
     }
 
     render() {
@@ -58,11 +87,11 @@ export default withAuth(class Dashboard extends Component {
 
                 </div>
                 <div className="categories">
-                    <Category categoryName="unopened" cards={cards.unopened} updateDragData={this.updateDragData} dragData={dragData} />
-                    <Category categoryName="in-progress" cards={cards.inProgress} updateDragData={this.updateDragData} dragData={dragData} />
-                    <Category categoryName="in-qa" cards={cards.inQa} updateStartDrag={this.updateStartDrag} updateDragData={this.updateDragData} dragData={dragData} />
-                    <Category categoryName="in-debugging" cards={cards.inDebugging} updateStartDrag={this.updateStartDrag} updateDragData={this.updateDragData} dragData={dragData}  />
-                    <Category categoryName="finished" cards={cards.finished} updateStartDrag={this.updateStartDrag} updateDragData={this.updateDragData} dragData={dragData}  />
+                    <Category categoryName="unopened" cards={cards.unopened} updateCards={this.updateCards} />
+                    <Category categoryName="inProgress" cards={cards.inProgress} updateCards={this.updateCards} />
+                    <Category categoryName="inQa" cards={cards.inQa} updateCards={this.updateCards} />
+                    {/*<Category categoryName="inDebugging" cards={cards.inDebugging} />*/}
+                    {/*<Category categoryName="finished" cards={cards.finished} />*/}
                 </div>
                 <div className="footer">footer</div>
             </div>

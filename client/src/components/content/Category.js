@@ -6,7 +6,7 @@ import Card from "./Card";
 import '../../styles/Category.scss'
 
 class Category extends Component {
-    // // this should not live like this
+    // this should not live like this
     getCardsElement(ev) {
         switch (ev.target.className) {
             case 'card':
@@ -22,48 +22,35 @@ class Category extends Component {
 
     onDragOver(ev) {
         ev.preventDefault();
-
-        //figure out where the card is coming from
-        const { dragData } = this.props;
-
-        if(dragData.shouldSaveInitialCategory){
-            dragData.initialCategory = ev.currentTarget.id;
-            dragData.shouldSaveInitialCategory = false;
-            this.props.updateDragData(dragData)
-        }
-
     }
 
     onDrop(ev) {
-        var data = ev.dataTransfer.getData("text");
-        const target = this.getCardsElement(ev);
-        (!isNaN(data)) ? target.appendChild(document.getElementById(data)) : ev.preventDefault();
-
-        //update drag flag
-        let { dragData } = this.props;
-
-        this.props.updateDragData({shouldSaveInitialCategory: true})
-
-        //update db
         const { categoryName, cards } = this.props;
-        this.messWithCards(categoryName, cards)
 
+        const cardId = ev.dataTransfer.getData("cardId");
+        const initialCategory = ev.dataTransfer.getData("initialCategory");
+        const target = this.getCardsElement(ev);
+        (!isNaN(cardId)) ? target.appendChild(document.getElementById(cardId)) : ev.preventDefault();
+
+        this.props.updateCards(initialCategory, categoryName, cardId)
     }
 
-    messWithCards = (categoryName, cards) => {
-        console.log('cards: ',cards)
-        console.log(`${this.props.dragData.initialCategory} ---> ${categoryName}`)
-    }
-
-    printCards(cards){
+    printCards = (cards, categoryName) => {
         if(isUndefined(cards) || cards.length === 0){
             return
         }
 
-        return cards.map(function(name, index){
-            return <Card id={name} key={index} />
+        return cards.map((name, index) => {
+            return <Card
+                id={name}
+                key={index}
+                categoryName={categoryName}
+                setInitialCategoryName={this.setInitialCategoryName}
+                unsetDragData={this.unsetDragData}
+            />
         })
     }
+
     render() {
         const { categoryName, cards } = this.props;
 
@@ -73,8 +60,8 @@ class Category extends Component {
                 <div className="cards"
                     id={categoryName}
                     onDrop={(event) => this.onDrop(event)}
-                    onDragOver={(event) => this.onDragOver(event)}>
-                        {this.printCards(cards)}
+                    onDragOver={(event) => this.onDragOver(event)} >
+                        {this.printCards(cards, categoryName)}
                 </div>
             </div>
         );

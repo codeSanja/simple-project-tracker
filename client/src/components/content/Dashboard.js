@@ -57,7 +57,11 @@ export default withAuth(class Dashboard extends Component {
     }
 
     printCategories = (cards) => {
-        return Object.keys(cards).map((name, index) => {
+        // TODO categoryNames keyMirros
+        // const categoryNames = keyMirror({})
+        const categories = ["unopened", "inProgress", "inQa", "inDebugging", "finished"];
+        return categories.map((name, index) => {
+
             return <Category
                 key={index}
                 categoryName={name}

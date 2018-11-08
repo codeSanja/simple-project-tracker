@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import { isEmpty } from "underscore"
+import { isEmpty, isUndefined } from "underscore"
 import { withAuth } from "@okta/okta-react";
 import Category from './Category'
 
@@ -28,9 +28,11 @@ export default withAuth(class Dashboard extends Component {
         })
 
         // TODO put in constants `spt-cards-${currentUserEmail}`
-        const cards = JSON.parse(localStorage[`spt-cards-${currentUserEmail}`]);
+        const cards = isUndefined(localStorage[`spt-cards-${currentUserEmail}`]) ? {} : JSON.parse(localStorage[`spt-cards-${currentUserEmail}`]);
 
-        isEmpty(cards) ? this.getCardsFromDb(currentUserEmail) : this.setState({ cards })
+        isEmpty(cards) ?
+            this.getCardsFromDb(currentUserEmail).then((cards) => this.saveCardsInLocalStorage(currentUserEmail, cards))
+            : this.setState({ cards })
     }
 
     updateCards = (initialCategory, newCategory, cardId) => {
@@ -54,6 +56,10 @@ export default withAuth(class Dashboard extends Component {
         console.log(`cards["${newCategory}"] :: `, cards[newCategory])
 
 
+        //update in local storage
+        this.saveCardsInLocalStorage(currentUserEmail, cards)
+
+        // update in db
         axios.post(`/cards`, {
             cards,
             email: currentUserEmail
@@ -83,10 +89,15 @@ export default withAuth(class Dashboard extends Component {
             .then(res => {
                 const cardsFromDb = res.data;
                 this.setState({ cards: cardsFromDb });
-                localStorage[`spt-cards-${email}`] = JSON.stringify(cardsFromDb)
+                return cardsFromDb;
+                // localStorage[`spt-cards-${email}`] = JSON.stringify(cardsFromDb)
             }).catch(err => {
                 console.error(err);
             })
+    }
+
+    saveCardsInLocalStorage = (email, cards) => {
+        localStorage[`spt-cards-${email}`] = JSON.stringify(cards)
     }
 
     render() {
@@ -113,5 +124,3 @@ export default withAuth(class Dashboard extends Component {
         );
     }
 });
-
-// export default Dashboard;

@@ -25,7 +25,7 @@ class Category extends Component {
     }
 
     onDrop(ev) {
-        const { categoryName, cards } = this.props;
+        const { categoryName } = this.props;
 
         const cardId = ev.dataTransfer.getData("cardId");
         const initialCategory = ev.dataTransfer.getData("initialCategory");

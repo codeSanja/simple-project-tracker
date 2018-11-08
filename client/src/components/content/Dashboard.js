@@ -30,7 +30,6 @@ export default withAuth(class Dashboard extends Component {
         this.setState({
             currentUserName,
             currentUserEmail,
-            // cards
             cards: categorised
         })
     }
@@ -57,11 +56,9 @@ export default withAuth(class Dashboard extends Component {
     }
 
     printCategories = (cards) => {
-        // TODO categoryNames keyMirros
-        // const categoryNames = keyMirror({})
+        // TODO  const categoryNames = keyMirror({})
         const categories = ["unopened", "inProgress", "inQa", "inDebugging", "finished"];
         return categories.map((name, index) => {
-
             return <Category
                 key={index}
                 categoryName={name}
@@ -89,7 +86,6 @@ export default withAuth(class Dashboard extends Component {
                 const categorised = groupBy(cardsFromDb, 'category')
                 this.setState({ cards: categorised });
                 return cardsFromDb;
-                // localStorage[`spt-cards-${email}`] = JSON.stringify(cardsFromDb)
             }).catch(err => {
                 console.error(err);
             })

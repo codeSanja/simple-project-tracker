@@ -35,7 +35,6 @@ export default withAuth(class Dashboard extends Component {
                     cards: res.data
                 })
             })
-
     }
 
     updateCards = (initialCategory, newCategory, cardId) => {
@@ -72,6 +71,17 @@ export default withAuth(class Dashboard extends Component {
 
     }
 
+    printCategories = (cards) => {
+        return Object.keys(cards).map((name, index) => {
+            return <Category
+                key={index}
+                categoryName={name}
+                cards={cards[name]}
+                updateCards={this.updateCards}
+            />
+        })
+    }
+
     render() {
         const { currentUserName, currentUserEmail, cards, dragData } = this.state
 
@@ -89,11 +99,7 @@ export default withAuth(class Dashboard extends Component {
 
                 </div>
                 <div className="categories">
-                    <Category categoryName="unopened" cards={cards.unopened} updateCards={this.updateCards} />
-                    <Category categoryName="inProgress" cards={cards.inProgress} updateCards={this.updateCards} />
-                    <Category categoryName="inQa" cards={cards.inQa} updateCards={this.updateCards} />
-                    {/*<Category categoryName="inDebugging" cards={cards.inDebugging} />*/}
-                    {/*<Category categoryName="finished" cards={cards.finished} />*/}
+                    {this.printCategories(cards)}
                 </div>
                 <div className="footer">footer</div>
             </div>

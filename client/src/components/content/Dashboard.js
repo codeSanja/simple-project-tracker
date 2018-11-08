@@ -27,12 +27,10 @@ export default withAuth(class Dashboard extends Component {
             currentUserEmail
         })
 
-        // TODO put in constants `spt-cards-${currentUserEmail}`
-        const cards = isUndefined(localStorage[`spt-cards-${currentUserEmail}`]) ? {} : JSON.parse(localStorage[`spt-cards-${currentUserEmail}`]);
+        const cards = this.getCardsFromLocalStorage(currentUserEmail)
 
-        isEmpty(cards) ?
-            this.getCardsFromDb(currentUserEmail).then((cards) => this.saveCardsInLocalStorage(currentUserEmail, cards))
-            : this.setState({ cards })
+        !isEmpty(cards) ? this.setState({ cards }) : this.putCardsFromDbToLocalStorage(currentUserEmail)
+            // this.getCardsFromDb(currentUserEmail).then((cards) => this.saveCardsInLocalStorage(currentUserEmail, cards));
     }
 
     updateCards = (initialCategory, newCategory, cardId) => {
@@ -84,6 +82,15 @@ export default withAuth(class Dashboard extends Component {
         })
     }
 
+    getCardsFromLocalStorage = (email) => {
+        // TODO put in constants `spt-cards-${currentUserEmail}`
+        return isUndefined(localStorage[`spt-cards-${email}`]) ? {} : JSON.parse(localStorage[`spt-cards-${email}`])
+    }
+
+    saveCardsInLocalStorage = (email, cards) => {
+        localStorage[`spt-cards-${email}`] = JSON.stringify(cards)
+    }
+
     getCardsFromDb = (email) => {
         return axios.get(`/cards`, { params: { email: email }})
             .then(res => {
@@ -96,8 +103,8 @@ export default withAuth(class Dashboard extends Component {
             })
     }
 
-    saveCardsInLocalStorage = (email, cards) => {
-        localStorage[`spt-cards-${email}`] = JSON.stringify(cards)
+    putCardsFromDbToLocalStorage = (email) => {
+        return this.getCardsFromDb(email).then((cards) => this.saveCardsInLocalStorage(email, cards))
     }
 
     render() {

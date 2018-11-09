@@ -23,25 +23,18 @@ export default withAuth(class Dashboard extends Component {
     componentDidMount() {
         const oktaTokenStorage = JSON.parse(localStorage['okta-token-storage'])
         const { name: currentUserName, email: currentUserEmail } = oktaTokenStorage.idToken.claims
-        const cards = this.getCards(currentUserEmail)
 
-        const categorised = groupBy(cards, 'category')
+        this.getCardsFromDb(currentUserEmail)
+            .then((cards) => {
+                const categorised = groupBy(cards, 'category')
 
-        this.setState({
-            currentUserName,
-            currentUserEmail,
-            cards: categorised
-        })
-    }
+                this.setState({
+                    currentUserName,
+                    currentUserEmail,
+                    cards: categorised
+                })
 
-    getCards = (email) => {
-        const cards = this.getCardsFromLocalStorage(email)
-
-        if (isEmpty(cards)){
-            return this.getCardsFromDb(email).then((cards) => this.saveCardsInLocalStorage(email, cards))
-        }
-
-        return cards;
+            });
     }
 
     updateCards = (initialCategory, newCategory, cardId) => {
@@ -51,7 +44,7 @@ export default withAuth(class Dashboard extends Component {
         const cardIndex = _.findIndex(flattenCards, (card) =>  card.id === parseInt(cardId) )
         flattenCards[cardIndex].category = newCategory;
 
-        this.saveCardsInLocalStorage(currentUserEmail, flattenCards)
+        // this.saveCardsInLocalStorage(currentUserEmail, flattenCards)
         this.saveCardsInDb(currentUserEmail, flattenCards)
     }
 
@@ -66,15 +59,6 @@ export default withAuth(class Dashboard extends Component {
                 updateCards={this.updateCards}
             />
         })
-    }
-
-    getCardsFromLocalStorage = (email) => {
-        // TODO put in constants `spt-cards-${currentUserEmail}`
-        return isUndefined(localStorage[`spt-cards-${email}`]) ? {} : JSON.parse(localStorage[`spt-cards-${email}`])
-    }
-
-    saveCardsInLocalStorage = (email, cards) => {
-        localStorage[`spt-cards-${email}`] = JSON.stringify(cards)
     }
 
     getCardsFromDb = (email) => {

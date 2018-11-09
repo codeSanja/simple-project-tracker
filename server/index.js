@@ -9,8 +9,10 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
 
+let cardsDb = require("./db/cards");
+
 app.get('/cards', (req, res) => {
-    const cards = require(`./db/${req.query.email}`);
+    const cards = cardsDb[req.query.email]
     console.log("cards :: ", cards)
     res.send(cards)
 })
@@ -20,7 +22,9 @@ app.post('/cards', (req, res) => {
     const email = req.body.email;
     const cards = req.body.cards;
 
-    fs.writeJson(`./db/${email}.json`, cards)
+    cardsDb[email] = cards;
+
+    fs.writeJson("./db/cards.json", cardsDb)
         .then(() => {
             console.log(`Cards saved for ${email}`)
             res.send(cards)

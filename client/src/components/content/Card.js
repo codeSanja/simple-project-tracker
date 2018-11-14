@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from "react-beautiful-dnd"
 import '../../styles/Card.scss';
 
-class Card extends Component {
+class Card extends PureComponent {
 
     render() {
         const { id, title, description, index } = this.props;

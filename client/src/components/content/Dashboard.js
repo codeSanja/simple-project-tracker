@@ -10,15 +10,10 @@ import Category from './Category'
 import '../../styles/Dashboard.scss';
 
 export default withAuth(class Dashboard extends Component {
-
-    constructor(props){
-        super(props)
-
-        this.state = {
-            currentUserName: '',
-            currentUserEmail: '',
-            cards: []
-        }
+    state = {
+        currentUserName: '',
+        currentUserEmail: '',
+        cards: []
     }
 
     componentDidMount() {

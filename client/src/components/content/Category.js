@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Droppable } from "react-beautiful-dnd"
 import { isUndefined } from 'underscore';
@@ -6,7 +6,7 @@ import Card from "./Card";
 
 import '../../styles/Category.scss'
 
-class Category extends Component {
+class Category extends PureComponent {
 
     printCards = (cards) => {
         return cards.map((card, index) => {

@@ -142,8 +142,6 @@ export default withAuth(class Dashboard extends Component {
 
         this.saveCardsInDb(currentUserEmail, newCardsState)
         this.setState({cards: newCardsState})
-
-
     }
 
     render() {

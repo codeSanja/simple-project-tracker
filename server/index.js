@@ -25,7 +25,7 @@ app.post('/cards', (req, res) => {
 
     cardsDb[email] = cards;
 
-    fs.writeJson("./db/cards.json", cardsDb)
+    fs.writeJson("./db/initialData.json", cardsDb)
         .then(() => {
             console.log(`Cards saved for ${email}`)
             res.send(cards)

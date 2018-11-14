@@ -14,24 +14,26 @@ class Card extends Component {
     }
 
     render() {
-        const { card, categoryName } = this.props;
+        const { id, title, description, categoryName } = this.props;
 
         return (
             <div
                 className="card"
-                id={card.id}
+                id={id}
                 draggable
                 onDragStart={(event) => this.onDragStart(event, categoryName)}>
-                <div className="title">{card.title}</div>
-                {card.description ?  <div className="description">{card.description}</div> : null}
+                <div className="title">{title}</div>
+                <div className="description">{description}</div>
             </div>
         );
     }
 }
 
 Card.propTypes = {
-    card: PropTypes.object.isRequired,
-    categoryName: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    categoryName: PropTypes.string,
 };
 
 export default Card;

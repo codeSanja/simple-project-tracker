@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import { isEmpty, isUndefined, contains } from "underscore"
 import _ from "lodash"
 import { withAuth } from "@okta/okta-react";
 import Category from './Category'
@@ -42,7 +41,6 @@ export default withAuth(class Dashboard extends Component {
         const cardIndex = _.findIndex(flattenCards, (card) =>  card.id === parseInt(cardId) )
         flattenCards[cardIndex].category = newCategory;
 
-        // this.saveCardsInLocalStorage(currentUserEmail, flattenCards)
         this.saveCardsInDb(currentUserEmail, flattenCards)
     }
 
@@ -51,12 +49,12 @@ export default withAuth(class Dashboard extends Component {
         if(!cards.columnOrder){
             return
         }
-        // debugger
 
         return cards.columnOrder.map((columnId, index) => { // za svaku kategoruju
 
             const taskIds = cards.columns[columnId].taskIds;
-            let cardsForColumn = []
+            let cardsForColumn = [];
+
             Object.keys(cards.tasks).map((taskId) => {
                 if(taskIds.includes(taskId)){
                     cardsForColumn.push(cards.tasks[taskId])

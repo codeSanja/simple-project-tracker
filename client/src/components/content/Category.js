@@ -40,10 +40,12 @@ class Category extends Component {
             return
         }
 
-        return Object.keys(cards).map((cardId) => {
+        return cards.map((card) => {
             return <Card
-                card={cards[cardId]}
-                key={cardId}
+                description={card.description}
+                title={card.title}
+                id={card.id}
+                key={card.id}
                 categoryName={categoryName}
                 setInitialCategoryName={this.setInitialCategoryName}
                 unsetDragData={this.unsetDragData}

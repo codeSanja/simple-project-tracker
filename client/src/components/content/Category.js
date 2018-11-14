@@ -8,18 +8,13 @@ import '../../styles/Category.scss'
 
 class Category extends Component {
 
-    printCards = (cards, categoryName) => {
-        if(isUndefined(cards) || cards.length === 0){
-            return
-        }
-
+    printCards = (cards) => {
         return cards.map((card) => {
             return <Card
                 description={card.description}
                 title={card.title}
                 id={card.id}
                 key={card.id}
-                categoryName={categoryName}
                 setInitialCategoryName={this.setInitialCategoryName}
                 unsetDragData={this.unsetDragData}
             />
@@ -29,24 +24,22 @@ class Category extends Component {
     render() {
         const { categoryId, categoryName, cards } = this.props;
 
+        if(isUndefined(cards)){
+            return (<div>Loading...</div>)
+        }
+
         return (
             <div className="card-category">
                 <h4 className="title">{categoryName}</h4>
                 <div className="cards">
                     <Droppable droppableId={categoryId}>
                         {(provided) => (
-                            <div  ref={provided.innerRef} and innerRef={provided.innerRef} {...provided.droppableProps}>
-                                {cards.map((card) => {
-                                    return <Card
-                                    description={card.description}
-                                    title={card.title}
-                                    id={card.id}
-                                    key={card.id}
-                                    categoryName={categoryName}
-                                    setInitialCategoryName={this.setInitialCategoryName}
-                                    unsetDragData={this.unsetDragData}
-                                    />
-                                })}
+                            <div
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                            >
+                                {this.printCards(cards)}
+                                {provided.placeholder}
                             </div>
                         )}
                     </Droppable>

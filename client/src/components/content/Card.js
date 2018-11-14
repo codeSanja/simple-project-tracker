@@ -5,14 +5,10 @@ import '../../styles/Card.scss';
 class Card extends Component {
 
     render() {
-        const { id, title, description, categoryName } = this.props;
+        const { id, title, description } = this.props;
 
         return (
-            <div
-                className="card"
-                id={id}
-                // onDragStart={(event) => this.onDragStart(event, categoryName)}
-            >
+            <div className="card" id={id}>
                 <div className="title">{title}</div>
                 <div className="description">{description}</div>
             </div>
@@ -23,8 +19,7 @@ class Card extends Component {
 Card.propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    categoryName: PropTypes.string,
+    description: PropTypes.string
 };
 
 export default Card;

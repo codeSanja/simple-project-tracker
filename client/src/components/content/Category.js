@@ -32,10 +32,10 @@ class Category extends Component {
         return (
             <div className="card-category">
                 <h4 className="title">{categoryName}</h4>
-                <div className="cards">
                     <Droppable droppableId={categoryId}>
                         {(provided) => (
                             <div
+                                className="cards"
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
                             >
@@ -44,7 +44,6 @@ class Category extends Component {
                             </div>
                         )}
                     </Droppable>
-                </div>
             </div>
         );
     }

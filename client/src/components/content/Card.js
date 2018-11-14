@@ -3,15 +3,6 @@ import PropTypes from 'prop-types';
 import '../../styles/Card.scss';
 
 class Card extends Component {
-    onDragStart(ev, categoryName) {
-        if(ev.target.className !== 'card'){
-            return;
-        }
-
-        ev.dataTransfer.effectAllowed = 'move';
-        ev.dataTransfer.setData("cardId", ev.target.id);
-        ev.dataTransfer.setData("initialCategory", categoryName);
-    }
 
     render() {
         const { id, title, description, categoryName } = this.props;

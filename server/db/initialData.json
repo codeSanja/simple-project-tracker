@@ -20,11 +20,21 @@
       },
       "column-3": {
         "id": "column-3",
+        "title": "In QA",
+        "taskIds": []
+      },
+      "column-4": {
+        "id": "column-3",
+        "title": "In debugging",
+        "taskIds": []
+      },
+      "column-5": {
+        "id": "column-3",
         "title": "Done",
         "taskIds": ["task-5"]
       }
     },
-    "columnOrder":[ "column-1", "column-2", "column-3"]
+    "columnOrder":[ "column-1", "column-2", "column-3", "column-4", "column-5"]
   },
   "9axy6mm@gmail.com": {
     "tasks": {

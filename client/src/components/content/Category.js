@@ -33,20 +33,23 @@ class Category extends Component {
             <div className="card-category">
                 <h4 className="title">{categoryName}</h4>
                 <div className="cards">
-                    {/*<Droppable droppableId={categoryId}></Droppable>*/}
-                        {cards.map((card) => {
-                            return <Card
-                                description={card.description}
-                                title={card.title}
-                                id={card.id}
-                                key={card.id}
-                                categoryName={categoryName}
-                                setInitialCategoryName={this.setInitialCategoryName}
-                                unsetDragData={this.unsetDragData}
-                            />
-                        })
-                        }
-
+                    <Droppable droppableId={categoryId}>
+                        {(provided) => (
+                            <div  ref={provided.innerRef} and innerRef={provided.innerRef} {...provided.droppableProps}>
+                                {cards.map((card) => {
+                                    return <Card
+                                    description={card.description}
+                                    title={card.title}
+                                    id={card.id}
+                                    key={card.id}
+                                    categoryName={categoryName}
+                                    setInitialCategoryName={this.setInitialCategoryName}
+                                    unsetDragData={this.unsetDragData}
+                                    />
+                                })}
+                            </div>
+                        )}
+                    </Droppable>
                 </div>
             </div>
         );

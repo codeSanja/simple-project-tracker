@@ -46,22 +46,17 @@ export default withAuth(class Dashboard extends Component {
         this.saveCardsInDb(currentUserEmail, flattenCards)
     }
 
-    // printCategories = (cards) => {
-    //     // TODO optimize this
-    //     if(!cards.columnOrder){
-    //         return
-    //     }
-    //
-    //     return cards.columnOrder.map((columnId, index) => {
-    //         return <Category
-    //             key={index}
-    //             categoryId={columnId}
-    //             categoryName={cards.columns[columnId].title}
-    //             cards={cards.columns[columnId].taskIds.map( taskId =>  cards.tasks[taskId] )}
-    //             updateCards={this.updateCards}
-    //         />
-    //     })
-    // }
+    printCategories = (cards) => {
+        return cards.columnOrder.map((columnId, index) => {
+            return <Category
+                key={index}
+                categoryId={columnId}
+                categoryName={cards.columns[columnId].title}
+                cards={cards.columns[columnId].taskIds.map( taskId =>  cards.tasks[taskId] )}
+                updateCards={this.updateCards}
+            />
+        })
+    }
 
     getCardsFromDb = (email) => {
         return axios.get(`/cards`, { params: { email: email }})
@@ -90,8 +85,11 @@ export default withAuth(class Dashboard extends Component {
     render() {
         const { currentUserName, currentUserEmail, cards } = this.state
 
+        if(isUndefined(cards.columnOrder))
+            return (<div>Loading...</div>)
+
         return (
-            <div className="dasonDragEndhboard">
+            <div className="dashboard">
                 <div className="header">
                     header
 
@@ -104,16 +102,9 @@ export default withAuth(class Dashboard extends Component {
 
                 </div>
                 <div className="categories">
-                    {/*<DragDropContext onDragEnd={this.onDragEnd}></DragDropContext>*/}
-                    {!isUndefined(cards.columnOrder) ? cards.columnOrder.map((columnId, index) => {
-                            return <Category
-                                key={index}
-                                categoryName={cards.columns[columnId].title}
-                                cards={cards.columns[columnId].taskIds.map( taskId =>  cards.tasks[taskId] )}
-                                updateCards={this.updateCards}
-                            />
-                        }) : null}
-
+                    <DragDropContext onDragEnd={this.onDragEnd}>
+                        {this.printCategories(cards)}
+                    </DragDropContext>
                 </div>
                 <div className="footer">footer</div>
             </div>

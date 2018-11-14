@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Droppable } from "react-beautiful-dnd"
 import { isUndefined } from 'underscore';
 import Card from "./Card";
 
@@ -26,16 +27,26 @@ class Category extends Component {
     }
 
     render() {
-        const { categoryName, cards } = this.props;
+        const { categoryId, categoryName, cards } = this.props;
 
         return (
             <div className="card-category">
                 <h4 className="title">{categoryName}</h4>
-                <div className="cards"
-                    id={categoryName}
-                    onDrop={(event) => this.onDrop(event)}
-                    onDragOver={(event) => this.onDragOver(event)} >
-                        {this.printCards(cards, categoryName)}
+                <div className="cards">
+                    {/*<Droppable droppableId={categoryId}></Droppable>*/}
+                        {cards.map((card) => {
+                            return <Card
+                                description={card.description}
+                                title={card.title}
+                                id={card.id}
+                                key={card.id}
+                                categoryName={categoryName}
+                                setInitialCategoryName={this.setInitialCategoryName}
+                                unsetDragData={this.unsetDragData}
+                            />
+                        })
+                        }
+
                 </div>
             </div>
         );
@@ -43,6 +54,7 @@ class Category extends Component {
 }
 
 Category.propTypes = {
+    categoryId: PropTypes.string.isRequired,
     categoryName: PropTypes.string.isRequired,
     cards: PropTypes.array
 };

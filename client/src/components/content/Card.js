@@ -11,8 +11,8 @@ class Card extends Component {
             <div
                 className="card"
                 id={id}
-                draggable
-                onDragStart={(event) => this.onDragStart(event, categoryName)}>
+                // onDragStart={(event) => this.onDragStart(event, categoryName)}
+            >
                 <div className="title">{title}</div>
                 <div className="description">{description}</div>
             </div>

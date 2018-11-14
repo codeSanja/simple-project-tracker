@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import _ from "lodash"
+import { isUndefined } from "underscore"
+import { DragDropContext } from "react-beautiful-dnd"
 import { withAuth } from "@okta/okta-react";
 import Category from './Category'
 
@@ -44,21 +46,22 @@ export default withAuth(class Dashboard extends Component {
         this.saveCardsInDb(currentUserEmail, flattenCards)
     }
 
-    printCategories = (cards) => {
-        // TODO optimize this
-        if(!cards.columnOrder){
-            return
-        }
-
-        return cards.columnOrder.map((columnId, index) => {
-            return <Category
-                key={index}
-                categoryName={cards.columns[columnId].title}
-                cards={cards.columns[columnId].taskIds.map( taskId =>  cards.tasks[taskId] )}
-                updateCards={this.updateCards}
-            />
-        })
-    }
+    // printCategories = (cards) => {
+    //     // TODO optimize this
+    //     if(!cards.columnOrder){
+    //         return
+    //     }
+    //
+    //     return cards.columnOrder.map((columnId, index) => {
+    //         return <Category
+    //             key={index}
+    //             categoryId={columnId}
+    //             categoryName={cards.columns[columnId].title}
+    //             cards={cards.columns[columnId].taskIds.map( taskId =>  cards.tasks[taskId] )}
+    //             updateCards={this.updateCards}
+    //         />
+    //     })
+    // }
 
     getCardsFromDb = (email) => {
         return axios.get(`/cards`, { params: { email: email }})
@@ -80,11 +83,15 @@ export default withAuth(class Dashboard extends Component {
         })
     }
 
+    onDragEnd = result => {
+
+    }
+
     render() {
         const { currentUserName, currentUserEmail, cards } = this.state
 
         return (
-            <div className="dashboard">
+            <div className="dasonDragEndhboard">
                 <div className="header">
                     header
 
@@ -97,7 +104,16 @@ export default withAuth(class Dashboard extends Component {
 
                 </div>
                 <div className="categories">
-                    {this.printCategories(cards)}
+                    {/*<DragDropContext onDragEnd={this.onDragEnd}></DragDropContext>*/}
+                    {!isUndefined(cards.columnOrder) ? cards.columnOrder.map((columnId, index) => {
+                            return <Category
+                                key={index}
+                                categoryName={cards.columns[columnId].title}
+                                cards={cards.columns[columnId].taskIds.map( taskId =>  cards.tasks[taskId] )}
+                                updateCards={this.updateCards}
+                            />
+                        }) : null}
+
                 </div>
                 <div className="footer">footer</div>
             </div>

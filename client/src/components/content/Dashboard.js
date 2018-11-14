@@ -31,16 +31,6 @@ export default withAuth(class Dashboard extends Component {
             });
     }
 
-    updateCards = (initialCategory, newCategory, cardId) => {
-        const { currentUserEmail, cards } = this.state
-
-        let flattenCards =  _.flatten(Object.values(cards))
-        const cardIndex = _.findIndex(flattenCards, (card) =>  card.id === parseInt(cardId) )
-        flattenCards[cardIndex].category = newCategory;
-
-        this.saveCardsInDb(currentUserEmail, flattenCards)
-    }
-
     printCategories = (cards) => {
         return cards.columnOrder.map((columnId, index) => {
             return <Category
@@ -48,7 +38,7 @@ export default withAuth(class Dashboard extends Component {
                 categoryId={columnId}
                 categoryName={cards.columns[columnId].title}
                 cards={cards.columns[columnId].taskIds.map( taskId =>  cards.tasks[taskId] )}
-                updateCards={this.updateCards}
+                // taskIds={cards.columns[columnId].taskIds} // do context api here
             />
         })
     }

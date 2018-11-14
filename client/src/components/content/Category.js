@@ -1,12 +1,16 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Droppable } from "react-beautiful-dnd"
-import { isUndefined } from 'underscore';
+import { isUndefined, isEqual } from 'underscore';
 import Card from "./Card";
 
 import '../../styles/Category.scss'
 
-class Category extends PureComponent {
+class Category extends Component {
+
+    shouldComponentUpdate(nextProps){
+        return !isEqual(this.props.cards, nextProps.cards)
+    }
 
     printCards = (cards) => {
         return cards.map((card, index) => {

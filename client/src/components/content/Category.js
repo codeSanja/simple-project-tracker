@@ -9,12 +9,13 @@ import '../../styles/Category.scss'
 class Category extends Component {
 
     printCards = (cards) => {
-        return cards.map((card) => {
+        return cards.map((card, index) => {
             return <Card
                 description={card.description}
                 title={card.title}
                 id={card.id}
                 key={card.id}
+                index={index}
                 setInitialCategoryName={this.setInitialCategoryName}
                 unsetDragData={this.unsetDragData}
             />

@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Draggable } from "react-beautiful-dnd"
 import '../../styles/Card.scss';
 
 class Card extends Component {
 
     render() {
-        const { id, title, description } = this.props;
+        const { id, title, description, index } = this.props;
 
         return (
-            <div className="card" id={id}>
-                <div className="title">{title}</div>
-                <div className="description">{description}</div>
-            </div>
+            <Draggable draggableId={id} index={index}>
+                {(provided) => (
+                    <div
+                        className="card"
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                    >
+                        <div className="title">{title}</div>
+                        <div className="description">{description}</div>
+                    </div>
+                )}
+            </Draggable>
         );
     }
 }
@@ -19,7 +29,8 @@ class Card extends Component {
 Card.propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    description: PropTypes.string
+    description: PropTypes.string,
+    index: PropTypes.number.isRequired
 };
 
 export default Card;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import { isEmpty, isUndefined, groupBy } from "underscore"
+import { isEmpty, isUndefined, contains } from "underscore"
 import _ from "lodash"
 import { withAuth } from "@okta/okta-react";
 import Category from './Category'
@@ -26,12 +26,10 @@ export default withAuth(class Dashboard extends Component {
 
         this.getCardsFromDb(currentUserEmail)
             .then((cards) => {
-                const categorised = groupBy(cards, 'category')
-
                 this.setState({
                     currentUserName,
                     currentUserEmail,
-                    cards: categorised
+                    cards
                 })
 
             });
@@ -49,13 +47,26 @@ export default withAuth(class Dashboard extends Component {
     }
 
     printCategories = (cards) => {
-        // TODO  const categoryNames = keyMirror({})
-        const categories = ["unopened", "inProgress", "inQa", "inDebugging", "finished"];
-        return categories.map((name, index) => {
+        // TODO optimize this
+        if(!cards.columnOrder){
+            return
+        }
+        // debugger
+
+        return cards.columnOrder.map((columnId, index) => { // za svaku kategoruju
+
+            const taskIds = cards.columns[columnId].taskIds;
+            let cardsForColumn = []
+            Object.keys(cards.tasks).map((taskId) => {
+                if(taskIds.includes(taskId)){
+                    cardsForColumn.push(cards.tasks[taskId])
+                }
+            })
+
             return <Category
                 key={index}
-                categoryName={name}
-                cards={cards[name]}
+                categoryName={cards.columns[columnId].title}
+                cards={cardsForColumn}
                 updateCards={this.updateCards}
             />
         })
@@ -65,10 +76,6 @@ export default withAuth(class Dashboard extends Component {
         return axios.get(`/cards`, { params: { email: email }})
             .then(res => {
                 const cardsFromDb = res.data;
-
-                // TODO duplicate code
-                const categorised = groupBy(cardsFromDb, 'category')
-                this.setState({ cards: categorised });
                 return cardsFromDb;
             }).catch(err => {
                 console.error(err);

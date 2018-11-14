@@ -9,7 +9,8 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
 
-let cardsDb = require("./db/cards");
+// let cardsDb = require("./db/cards");
+let cardsDb = require("./db/initialData");
 
 app.get('/cards', (req, res) => {
     const cards = cardsDb[req.query.email]

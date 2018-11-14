@@ -79,7 +79,41 @@ export default withAuth(class Dashboard extends Component {
     }
 
     onDragEnd = result => {
+    debugger
+        const { destination, source, draggableId } = result;
+        const { cards } = this.state
 
+        if (!destination) {
+            return
+        }
+
+        if (
+            destination.droppableId === source.droppableId &&
+            destination.index === source.index
+        ) {
+            return
+        }
+
+
+        const column = cards.columns[source.droppableId]
+        const newTaskIds = Array.from(column.taskIds)
+        newTaskIds.splice(source.index, 1)
+        newTaskIds.splice(destination.index, 0, draggableId)
+
+        const newColumn = {
+            ...column,
+            taskIds: newTaskIds
+        }
+
+        const newCardsState = {
+            ...cards,
+            columns: {
+                ...cards.columns,
+                [newColumn.id]: newColumn,
+            },
+        }
+
+        this.setState({cards: newCardsState})
     }
 
     render() {

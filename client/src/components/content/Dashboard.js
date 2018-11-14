@@ -50,21 +50,11 @@ export default withAuth(class Dashboard extends Component {
             return
         }
 
-        return cards.columnOrder.map((columnId, index) => { // za svaku kategoruju
-
-            const taskIds = cards.columns[columnId].taskIds;
-            let cardsForColumn = [];
-
-            Object.keys(cards.tasks).map((taskId) => {
-                if(taskIds.includes(taskId)){
-                    cardsForColumn.push(cards.tasks[taskId])
-                }
-            })
-
+        return cards.columnOrder.map((columnId, index) => {
             return <Category
                 key={index}
                 categoryName={cards.columns[columnId].title}
-                cards={cardsForColumn}
+                cards={cards.columns[columnId].taskIds.map( taskId =>  cards.tasks[taskId] )}
                 updateCards={this.updateCards}
             />
         })

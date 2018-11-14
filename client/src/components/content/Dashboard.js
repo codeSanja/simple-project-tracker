@@ -38,7 +38,6 @@ export default withAuth(class Dashboard extends Component {
                 categoryId={columnId}
                 categoryName={cards.columns[columnId].title}
                 cards={cards.columns[columnId].taskIds.map( taskId =>  cards.tasks[taskId] )}
-                // taskIds={cards.columns[columnId].taskIds} // do context api here
             />
         })
     }

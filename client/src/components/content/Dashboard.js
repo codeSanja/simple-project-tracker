@@ -94,26 +94,56 @@ export default withAuth(class Dashboard extends Component {
         }
 
 
-        const column = cards.columns[source.droppableId]
-        const newTaskIds = Array.from(column.taskIds)
-        newTaskIds.splice(source.index, 1)
-        newTaskIds.splice(destination.index, 0, draggableId)
+        const start = cards.columns[source.droppableId];
+        const finish = cards.columns[destination.droppableId];
+        let newCardsState = {};
 
-        const newColumn = {
-            ...column,
-            taskIds: newTaskIds
-        }
+        if(start === finish){
+            const newTaskIds = Array.from(start.taskIds)
+            newTaskIds.splice(source.index, 1)
+            newTaskIds.splice(destination.index, 0, draggableId)
 
-        const newCardsState = {
-            ...cards,
-            columns: {
-                ...cards.columns,
-                [newColumn.id]: newColumn,
-            },
+            const newColumn = {
+                ...start,
+                taskIds: newTaskIds
+            }
+
+             newCardsState = {
+                ...cards,
+                columns: {
+                    ...cards.columns,
+                    [newColumn.id]: newColumn,
+                },
+            }
+        } else {
+            const startTaskIds = Array.from(start.taskIds);
+            startTaskIds.splice(source.index, 1);
+            const newStart = {
+                ...start,
+                taskIds: startTaskIds
+            };
+
+            const finishTaskIds = Array.from(finish.taskIds);
+            finishTaskIds.splice(destination.index, 0, draggableId);
+            const newFinish = {
+                ...finish,
+                taskIds: finishTaskIds
+            };
+
+            newCardsState = {
+                ...cards,
+                columns: {
+                    ...cards.columns,
+                    [newStart.id]: newStart,
+                    [newFinish.id]: newFinish,
+                },
+            }
         }
 
         this.saveCardsInDb(currentUserEmail, newCardsState)
         this.setState({cards: newCardsState})
+
+
     }
 
     render() {

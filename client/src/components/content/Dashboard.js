@@ -79,9 +79,8 @@ export default withAuth(class Dashboard extends Component {
     }
 
     onDragEnd = result => {
-    debugger
         const { destination, source, draggableId } = result;
-        const { cards } = this.state
+        const { currentUserEmail, cards } = this.state
 
         if (!destination) {
             return
@@ -114,6 +113,7 @@ export default withAuth(class Dashboard extends Component {
         }
 
         this.setState({cards: newCardsState})
+        this.saveCardsInDb(currentUserEmail, newCardsState)
     }
 
     render() {

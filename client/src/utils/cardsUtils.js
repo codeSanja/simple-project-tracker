@@ -1,4 +1,6 @@
-export const changeCardsOrder = (cards, result) => {
+import { isEqual } from "lodash"
+
+const changeCardsOrder = (cards, result) => {
     const { destination, source, draggableId } = result;
 
     const start = cards.columns[source.droppableId];
@@ -21,7 +23,7 @@ export const changeCardsOrder = (cards, result) => {
     }
 }
 
-export const moveCard = (cards, result) => {
+const moveCardToDifferentColumn = (cards, result) => {
     const { destination, source, draggableId } = result;
 
     const start = cards.columns[source.droppableId];
@@ -49,4 +51,18 @@ export const moveCard = (cards, result) => {
             [newFinish.id]: newFinish,
         },
     }
+}
+
+export const moveCard = (cards, result) => {
+    const { destination, source, draggableId } = result;
+
+    const start = cards.columns[source.droppableId];
+    const finish = cards.columns[destination.droppableId];
+
+    if(isEqual(start, finish)){
+        return changeCardsOrder(cards, result);
+    } else {
+        return moveCardToDifferentColumn(cards , result);
+    }
+
 }

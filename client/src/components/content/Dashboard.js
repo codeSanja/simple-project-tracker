@@ -20,7 +20,6 @@ class Dashboard extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-    debugger
         if(prevState.cameFromInterface){
             return {
                 cards: prevState.cards
@@ -61,7 +60,6 @@ class Dashboard extends Component {
     }
 
     saveCardsInDb = (email, cards) => {
-    debugger
         return axios.post(`/cards`, {
             cards,
             email
@@ -72,9 +70,7 @@ class Dashboard extends Component {
     }
 
     onDragEnd = result => {
-        const { getCards } = this.props
-
-        const { destination, source, draggableId } = result;
+        const { destination, source } = result;
         const { currentUserEmail, cards } = this.state
 
         if (!destination) {
@@ -88,17 +84,7 @@ class Dashboard extends Component {
             return
         }
 
-
-        const start = cards.columns[source.droppableId];
-        const finish = cards.columns[destination.droppableId];
-        let newCardsState = {};
-
-        if(start === finish){
-            newCardsState = changeCardsOrder(cards, result);
-        } else {
-            newCardsState = moveCard(cards , result);
-        }
-
+        const newCardsState = moveCard(cards , result)
         this.saveCardsInDb(currentUserEmail, newCardsState)
         this.setState({cards: newCardsState, cameFromInterface: true})
     }

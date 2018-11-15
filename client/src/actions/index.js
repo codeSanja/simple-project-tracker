@@ -1,7 +1,10 @@
 import axios from "axios";
 
+//TODO keyMirror
 export const REQUEST_CARDS = 'REQUEST_CARDS';
 export const RECEIVE_CARDS = 'RECEIVE_CARDS';
+export const SAVING_CARDS = 'SAVING_CARDS';
+export const SAVED_CARDS = 'SAVED_CARDS';
 
 export const requestCards = () => ({
     type: REQUEST_CARDS,
@@ -10,6 +13,15 @@ export const requestCards = () => ({
 export const receivedCards = data => ({
     type: RECEIVE_CARDS,
     payload: data,
+});
+
+
+export const savingCards = () => ({
+    type: SAVING_CARDS,
+});
+
+export const savedCards = () => ({
+    type: SAVED_CARDS,
 });
 
 export function fetchCards(email) {
@@ -30,13 +42,15 @@ export function fetchCards(email) {
 
 export function saveCards(email, cards) {
     return function (dispatch) {
-        // dispatch(savingCards());
+        dispatch(savingCards());
 
-        return axios.post(`/cards`, {
-            cards,
-            email
-        })
-            // .then(() => dispatch(savedCards()))
+        return axios.post(`/cards`, { cards, email })
+            .then(() => {
+                setTimeout(() => { // setTimeout is just for demonstration
+                    dispatch(savedCards())
+                }, 500);
+
+            })
             .catch(error => {
                 console.error(error)
             })

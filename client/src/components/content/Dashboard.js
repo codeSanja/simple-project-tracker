@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import { withAuth } from "@okta/okta-react";
+import { isUndefined } from "lodash"
 import Category from './Category'
 import { connect } from 'react-redux'
 import { fetchCards, saveCards } from '../../actions'
 import { DragDropContext } from "react-beautiful-dnd"
 import { initialState } from "../../reducers"
 import { moveCard } from "../../utils/cardsUtils"
+import savingGif from '../../img/saving.gif';
 
 import '../../styles/Dashboard.scss';
 
@@ -20,16 +22,17 @@ class Dashboard extends Component {
     static getDerivedStateFromProps(nextProps, prevState) {
         if(prevState.cameFromInterface){
             return {
-                cards: prevState.cards
-            };
+                cards: prevState.cards,
+                saving: nextProps.saving
+            }
         } else if (nextProps.cameFromDatabase){
             return {
                 cards: nextProps.cards,
                 cameFromInterface: false
-            };
+            }
         }
 
-        return null;
+        return null
     }
 
     componentDidMount() {
@@ -78,8 +81,14 @@ class Dashboard extends Component {
         this.setState({cards: newCardsState, cameFromInterface: true})
     }
 
+    printSaveStatus = () => {
+        return <div className="savingStatus">
+            <img src={savingGif} width="100" height="50" />
+        </div>
+    }
+
     render() {
-        const { cards, currentUserName, currentUserEmail } = this.state
+        const { cards, currentUserName, currentUserEmail, saving } = this.state
         const { loading } = this.props
 
         if(loading)
@@ -96,6 +105,7 @@ class Dashboard extends Component {
                         <div>{currentUserEmail}</div>
                         <button onClick={() => this.props.auth.logout('/')}>Logout</button>
                     </div>
+                    {saving ? this.printSaveStatus(saving) : null}
 
                 </div>
                 <div className="categories">
@@ -110,10 +120,12 @@ class Dashboard extends Component {
 }
 
 
-const mapStateToProps = ({ cards, cameFromDatabase, loading }) => ({
+const mapStateToProps = ({ cards, cameFromDatabase, loading, saving }) => ({
     cards,
     cameFromDatabase,
-    loading
+    loading,
+    saving
+
 })
 
 const mapDispatchToProps = {

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Link } from "react-router-dom";
 import { withAuth } from "@okta/okta-react";
 import Category from './Category'
 import { connect } from 'react-redux'
-import { fetchCards } from '../../actions'
+import { fetchCards, saveCards } from '../../actions'
 import { DragDropContext } from "react-beautiful-dnd"
 import { initialState } from "../../reducers"
 import { moveCard } from "../../utils/cardsUtils"
@@ -58,19 +57,10 @@ class Dashboard extends Component {
         })
     }
 
-    saveCardsInDb = (email, cards) => {
-        return axios.post(`/cards`, {
-            cards,
-            email
-        })
-        .catch(error => {
-            console.error(error)
-        })
-    }
-
     onDragEnd = result => {
         const { destination, source } = result;
         const { currentUserEmail, cards } = this.state
+        const { saveCardsInDb } = this.props
 
         if (!destination) {
             return
@@ -84,7 +74,7 @@ class Dashboard extends Component {
         }
 
         const newCardsState = moveCard(cards , result)
-        this.saveCardsInDb(currentUserEmail, newCardsState)
+        saveCardsInDb(currentUserEmail, newCardsState)
         this.setState({cards: newCardsState, cameFromInterface: true})
     }
 
@@ -127,7 +117,8 @@ const mapStateToProps = ({ cards, cameFromDatabase, loading }) => ({
 })
 
 const mapDispatchToProps = {
-    getCards: fetchCards
+    getCards: fetchCards,
+    saveCardsInDb: saveCards
 }
 
 Dashboard = connect(

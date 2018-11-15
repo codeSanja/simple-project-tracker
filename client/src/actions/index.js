@@ -26,3 +26,20 @@ export function fetchCards(email) {
 
     };
 }
+
+
+export function saveCards(email, cards) {
+    return function (dispatch) {
+        // dispatch(savingCards());
+
+        return axios.post(`/cards`, {
+            cards,
+            email
+        })
+            // .then(() => dispatch(savedCards()))
+            .catch(error => {
+                console.error(error)
+            })
+
+    };
+}

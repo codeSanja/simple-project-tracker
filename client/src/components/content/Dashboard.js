@@ -15,17 +15,21 @@ class Dashboard extends Component {
         currentUserName: '',
         currentUserEmail: '',
         cards: {},
+        cameFromDrag: false
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
     debugger
-        if (isEmpty(prevState.cards)){
-            return {
-                cards: nextProps.cards
-            };
-        } else { // came from drag
+        // if (isEmpty(prevState.cards)){
+
+        if(prevState.cameFromDrag){
             return {
                 cards: prevState.cards
+            };
+        } else if (nextProps.cameFromDb){
+            return {
+                cards: nextProps.cards,
+                cameFromDrag: false
             };
         }
 
@@ -133,7 +137,7 @@ class Dashboard extends Component {
         }
 
         this.saveCardsInDb(currentUserEmail, newCardsState)
-        this.setState({cards: newCardsState})
+        this.setState({cards: newCardsState, cameFromDrag: true})
     }
 
     render() {
@@ -168,8 +172,9 @@ class Dashboard extends Component {
 }
 
 
-const mapStateToProps = ({ cards, loading }) => ({
+const mapStateToProps = ({ cards, cameFromDb, loading }) => ({
     cards,
+    cameFromDb,
     loading
 })
 

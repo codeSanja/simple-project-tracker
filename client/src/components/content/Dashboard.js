@@ -19,9 +19,6 @@ class Dashboard extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-    debugger
-        // if (isEmpty(prevState.cards)){
-
         if(prevState.cameFromDrag){
             return {
                 cards: prevState.cards

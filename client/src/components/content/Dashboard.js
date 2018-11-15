@@ -1,34 +1,41 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import _ from "lodash"
-import { isUndefined } from "underscore"
-import { DragDropContext } from "react-beautiful-dnd"
+import { isUndefined, isEqual } from "underscore"
 import { withAuth } from "@okta/okta-react";
 import Category from './Category'
+import { connect } from 'react-redux'
+import { fetchCards } from '../../actions'
+import { DragDropContext } from "react-beautiful-dnd"
 
 import '../../styles/Dashboard.scss';
 
-export default withAuth(class Dashboard extends Component {
+class Dashboard extends Component {
     state = {
         currentUserName: '',
         currentUserEmail: '',
         cards: []
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (!isEqual(prevState.cards, nextProps.cards)){
+            return {
+                cards: nextProps.cards
+            };
+        }
+
+        return null;
+    }
+
     componentDidMount() {
         const oktaTokenStorage = JSON.parse(localStorage['okta-token-storage'])
         const { name: currentUserName, email: currentUserEmail } = oktaTokenStorage.idToken.claims
+        this.props.getCards(currentUserEmail)
 
-        this.getCardsFromDb(currentUserEmail)
-            .then((cards) => {
-                this.setState({
-                    currentUserName,
-                    currentUserEmail,
-                    cards
-                })
-
-            });
+        this.setState({
+            currentUserName,
+            currentUserEmail
+        })
     }
 
     printCategories = (cards) => {
@@ -40,16 +47,6 @@ export default withAuth(class Dashboard extends Component {
                 cards={cards.columns[columnId].taskIds.map( taskId =>  cards.tasks[taskId] )}
             />
         })
-    }
-
-    getCardsFromDb = (email) => {
-        return axios.get(`/cards`, { params: { email: email }})
-            .then(res => {
-                const cardsFromDb = res.data;
-                return cardsFromDb;
-            }).catch(err => {
-                console.error(err);
-            })
     }
 
     saveCardsInDb = (email, cards) => {
@@ -130,8 +127,9 @@ export default withAuth(class Dashboard extends Component {
 
     render() {
         const { currentUserName, currentUserEmail, cards } = this.state
+        const { loading } = this.props
 
-        if(isUndefined(cards.columnOrder))
+        if(loading)
             return (<div>Loading...</div>)
 
         return (
@@ -156,4 +154,21 @@ export default withAuth(class Dashboard extends Component {
             </div>
         );
     }
-});
+}
+
+
+const mapStateToProps = (state) => ({
+    cards: state.cards,
+    loading: state.loading
+})
+
+const mapDispatchToProps = {
+    getCards: fetchCards
+}
+
+Dashboard = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withAuth(Dashboard))
+
+export default Dashboard;

@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { fetchCards } from '../../actions'
 import { DragDropContext } from "react-beautiful-dnd"
 import { initialState } from "../../reducers"
+import { changeCardsOrder, moveCard } from "../../utils/cardsUtils"
 
 import '../../styles/Dashboard.scss';
 
@@ -19,6 +20,7 @@ class Dashboard extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
+    debugger
         if(prevState.cameFromInterface){
             return {
                 cards: prevState.cards
@@ -92,45 +94,9 @@ class Dashboard extends Component {
         let newCardsState = {};
 
         if(start === finish){
-            const newTaskIds = Array.from(start.taskIds)
-            newTaskIds.splice(source.index, 1)
-            newTaskIds.splice(destination.index, 0, draggableId)
-
-            const newColumn = {
-                ...start,
-                taskIds: newTaskIds
-            }
-
-             newCardsState = {
-                ...cards,
-                columns: {
-                    ...cards.columns,
-                    [newColumn.id]: newColumn,
-                },
-            }
+            newCardsState = changeCardsOrder(cards, start, source, destination, draggableId);
         } else {
-            const startTaskIds = Array.from(start.taskIds);
-            startTaskIds.splice(source.index, 1);
-            const newStart = {
-                ...start,
-                taskIds: startTaskIds
-            };
-
-            const finishTaskIds = Array.from(finish.taskIds);
-            finishTaskIds.splice(destination.index, 0, draggableId);
-            const newFinish = {
-                ...finish,
-                taskIds: finishTaskIds
-            };
-
-            newCardsState = {
-                ...cards,
-                columns: {
-                    ...cards.columns,
-                    [newStart.id]: newStart,
-                    [newFinish.id]: newFinish,
-                },
-            }
+            newCardsState = moveCard(cards, start, finish, source, destination, draggableId);
         }
 
         this.saveCardsInDb(currentUserEmail, newCardsState)

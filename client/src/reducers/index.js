@@ -3,7 +3,7 @@ import { REQUEST_CARDS, RECEIVE_CARDS } from '../actions';
 const initialState = {
     loading: true,
     cards: {},
-    cameFromDb: false
+    cameFromDatabase: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -11,7 +11,7 @@ const reducer = (state = initialState, action) => {
         case REQUEST_CARDS:
             return { ...state, loading: true };
         case RECEIVE_CARDS:
-            return { ...state, cards: action.payload, cameFromDb:true, loading: false };
+            return { ...state, cards: action.payload, cameFromDatabase:true, loading: false };
         default:
             return state;
     }

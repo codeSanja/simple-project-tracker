@@ -7,6 +7,7 @@ import Category from './Category'
 import { connect } from 'react-redux'
 import { fetchCards } from '../../actions'
 import { DragDropContext } from "react-beautiful-dnd"
+import { initialState } from "../../reducers"
 
 import '../../styles/Dashboard.scss';
 
@@ -14,8 +15,7 @@ class Dashboard extends Component {
     state = {
         currentUserName: '',
         currentUserEmail: '',
-        cards: {},
-        cameFromInterface: false
+        ...initialState
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {

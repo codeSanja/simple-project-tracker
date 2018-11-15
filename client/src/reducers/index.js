@@ -1,6 +1,6 @@
 import { REQUEST_CARDS, RECEIVE_CARDS } from '../actions';
 
-const initialState = {
+export const initialState = {
     loading: true,
     cards: {},
     cameFromDatabase: false

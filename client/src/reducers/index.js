@@ -1,9 +1,8 @@
 import { REQUEST_CARDS, RECEIVE_CARDS } from '../actions';
 
-//TODO change initital state
 const initialState = {
     loading: true,
-    cards: []
+    cards: {}
 }
 
 const reducer = (state = initialState, action) => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import { isUndefined, isEqual } from "underscore"
+import { isEmpty, isEqual } from "lodash"
 import { withAuth } from "@okta/okta-react";
 import Category from './Category'
 import { connect } from 'react-redux'
@@ -14,13 +14,18 @@ class Dashboard extends Component {
     state = {
         currentUserName: '',
         currentUserEmail: '',
+        cards: {},
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (!isEqual(prevState, nextProps)){
+    debugger
+        if (isEmpty(prevState.cards)){
             return {
-                loading: nextProps.loading,
                 cards: nextProps.cards
+            };
+        } else { // came from drag
+            return {
+                cards: prevState.cards
             };
         }
 
@@ -28,14 +33,17 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
+        const { getCards } = this.props
+
         const oktaTokenStorage = JSON.parse(localStorage['okta-token-storage'])
         const { name: currentUserName, email: currentUserEmail } = oktaTokenStorage.idToken.claims
+
         this.setState({
             currentUserName,
             currentUserEmail
         })
 
-        this.props.getCards(currentUserEmail)
+        getCards(currentUserEmail)
     }
 
     printCategories = (cards) => {
@@ -50,6 +58,7 @@ class Dashboard extends Component {
     }
 
     saveCardsInDb = (email, cards) => {
+    debugger
         return axios.post(`/cards`, {
             cards,
             email
@@ -60,6 +69,8 @@ class Dashboard extends Component {
     }
 
     onDragEnd = result => {
+        const { getCards } = this.props
+
         const { destination, source, draggableId } = result;
         const { currentUserEmail, cards } = this.state
 
@@ -126,7 +137,8 @@ class Dashboard extends Component {
     }
 
     render() {
-        const { cards, currentUserName, currentUserEmail, loading } = this.state
+        const { cards, currentUserName, currentUserEmail } = this.state
+        const { loading } = this.props
 
         if(loading)
             return (<div>Loading...</div>)
@@ -156,9 +168,9 @@ class Dashboard extends Component {
 }
 
 
-const mapStateToProps = (state) => ({
-    cards: state.cards,
-    loading: state.loading
+const mapStateToProps = ({ cards, loading }) => ({
+    cards,
+    loading
 })
 
 const mapDispatchToProps = {

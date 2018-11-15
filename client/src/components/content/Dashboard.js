@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from "react-router-dom";
-import { isEmpty, isEqual } from "lodash"
 import { withAuth } from "@okta/okta-react";
 import Category from './Category'
 import { connect } from 'react-redux'
 import { fetchCards } from '../../actions'
 import { DragDropContext } from "react-beautiful-dnd"
 import { initialState } from "../../reducers"
-import { changeCardsOrder, moveCard } from "../../utils/cardsUtils"
+import { moveCard } from "../../utils/cardsUtils"
 
 import '../../styles/Dashboard.scss';
 

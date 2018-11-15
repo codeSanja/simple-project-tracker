@@ -54,15 +54,11 @@ const moveCardToDifferentColumn = (cards, result) => {
 }
 
 export const moveCard = (cards, result) => {
-    const { destination, source, draggableId } = result;
-
+    const { destination, source } = result;
     const start = cards.columns[source.droppableId];
     const finish = cards.columns[destination.droppableId];
 
-    if(isEqual(start, finish)){
-        return changeCardsOrder(cards, result);
-    } else {
-        return moveCardToDifferentColumn(cards , result);
-    }
+    return isEqual(start, finish) ? changeCardsOrder(cards, result)
+                                  : moveCardToDifferentColumn(cards, result)
 
 }

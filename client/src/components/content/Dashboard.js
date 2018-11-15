@@ -94,9 +94,9 @@ class Dashboard extends Component {
         let newCardsState = {};
 
         if(start === finish){
-            newCardsState = changeCardsOrder(cards, start, source, destination, draggableId);
+            newCardsState = changeCardsOrder(cards, result);
         } else {
-            newCardsState = moveCard(cards, start, finish, source, destination, draggableId);
+            newCardsState = moveCard(cards , result);
         }
 
         this.saveCardsInDb(currentUserEmail, newCardsState)

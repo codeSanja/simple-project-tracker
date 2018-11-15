@@ -1,4 +1,8 @@
-export const changeCardsOrder = (cards, start, source, destination, draggableId) => {
+export const changeCardsOrder = (cards, result) => {
+    const { destination, source, draggableId } = result;
+
+    const start = cards.columns[source.droppableId];
+
     const newTaskIds = Array.from(start.taskIds)
     newTaskIds.splice(source.index, 1)
     newTaskIds.splice(destination.index, 0, draggableId)
@@ -17,7 +21,12 @@ export const changeCardsOrder = (cards, start, source, destination, draggableId)
     }
 }
 
-export const moveCard = (cards, start, finish, source, destination, draggableId) => {
+export const moveCard = (cards, result) => {
+    const { destination, source, draggableId } = result;
+
+    const start = cards.columns[source.droppableId];
+    const finish = cards.columns[destination.droppableId];
+
     const startTaskIds = Array.from(start.taskIds);
     startTaskIds.splice(source.index, 1);
     const newStart = {

@@ -9,6 +9,7 @@ import { DragDropContext } from "react-beautiful-dnd"
 import { initialState } from "../../reducers"
 import { moveCard } from "../../utils/cardsUtils"
 import savingGif from '../../img/saving.gif';
+import LogoutButton from "../auth/LogoutButton"
 
 import '../../styles/Dashboard.scss';
 
@@ -101,7 +102,7 @@ class Dashboard extends Component {
                         <Link to='/'>Home</Link><br/>
                         <div>Welcome, {currentUserName}!</div>
                         <div>{currentUserEmail}</div>
-                        <button onClick={() => this.props.auth.logout('/')}>Logout</button>
+                        <LogoutButton logout={() => this.props.auth.logout('/')}/>
                     </div>
                     {saving ? this.printLoadingIndicator(saving) : null}
 

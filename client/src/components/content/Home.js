@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
+import LogoutButton from '../auth/LogoutButton'
+import LoginButton from '../auth/LoginButton'
 
 export default withAuth(class Home extends Component {
     state = { authenticated: null };
@@ -24,10 +26,6 @@ export default withAuth(class Home extends Component {
         this.props.auth.login('/dashboard');
     }
 
-    register = () => {
-        this.props.history.replace('/register');
-    }
-
     logout = () => {
         this.props.auth.logout('/');
     }
@@ -38,9 +36,10 @@ export default withAuth(class Home extends Component {
         const button = this.state.authenticated ?
             <div>
                 <Link to='/dashboard'>Dashboard</Link><br/>
-                <button onClick={this.logout}>Logout</button>
+                {/*TODO context API add here*/}
+                <LogoutButton logout={this.logout}/>
             </div> :
-                <button onClick={this.login}>Login / Register</button>
+                <LoginButton login={this.login} />
 
 
 

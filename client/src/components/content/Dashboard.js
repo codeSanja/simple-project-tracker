@@ -14,12 +14,12 @@ class Dashboard extends Component {
     state = {
         currentUserName: '',
         currentUserEmail: '',
-        cards: []
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (!isEqual(prevState.cards, nextProps.cards)){
+        if (!isEqual(prevState, nextProps)){
             return {
+                loading: nextProps.loading,
                 cards: nextProps.cards
             };
         }
@@ -30,12 +30,12 @@ class Dashboard extends Component {
     componentDidMount() {
         const oktaTokenStorage = JSON.parse(localStorage['okta-token-storage'])
         const { name: currentUserName, email: currentUserEmail } = oktaTokenStorage.idToken.claims
-        this.props.getCards(currentUserEmail)
-
         this.setState({
             currentUserName,
             currentUserEmail
         })
+
+        this.props.getCards(currentUserEmail)
     }
 
     printCategories = (cards) => {
@@ -126,8 +126,7 @@ class Dashboard extends Component {
     }
 
     render() {
-        const { currentUserName, currentUserEmail, cards } = this.state
-        const { loading } = this.props
+        const { cards, currentUserName, currentUserEmail, loading } = this.state
 
         if(loading)
             return (<div>Loading...</div>)

@@ -27,7 +27,6 @@ class App extends Component {
                     onAuthRequired={onAuthRequired}
           >
               <div className="main-header">
-                  Main Header
               </div>
               <Switch>
                   <Route exact path="/" component={Home} />
@@ -36,7 +35,7 @@ class App extends Component {
                   <Route path='/implicit/callback' component={ImplicitCallback}/>
                   <Route component={Lost} />
               </Switch>
-              <div className="main-footer">Main Footer</div>
+              <div className="main-footer"></div>
           </Security>
       </Router>
     );

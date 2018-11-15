@@ -81,7 +81,7 @@ class Dashboard extends Component {
         this.setState({cards: newCardsState, cameFromInterface: true})
     }
 
-    printSaveStatus = () => {
+    printLoadingIndicator = () => {
         return <div className="savingStatus">
             <img src={savingGif} width="100" height="50" />
         </div>
@@ -92,20 +92,18 @@ class Dashboard extends Component {
         const { loading } = this.props
 
         if(loading)
-            return (<div>Loading...</div>)
+            return this.printLoadingIndicator()
 
         return (
             <div className="dashboard">
                 <div className="header">
-                    header
-
                     <div>
                         <Link to='/'>Home</Link><br/>
                         <div>Welcome, {currentUserName}!</div>
                         <div>{currentUserEmail}</div>
                         <button onClick={() => this.props.auth.logout('/')}>Logout</button>
                     </div>
-                    {saving ? this.printSaveStatus(saving) : null}
+                    {saving ? this.printLoadingIndicator(saving) : null}
 
                 </div>
                 <div className="categories">
@@ -113,7 +111,7 @@ class Dashboard extends Component {
                         {this.printCategories(cards)}
                     </DragDropContext>
                 </div>
-                <div className="footer">footer</div>
+                <div className="footer"></div>
             </div>
         );
     }

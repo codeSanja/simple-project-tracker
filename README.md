@@ -13,7 +13,7 @@ Steps:
 `npm install`
 `npm start`
 
-3.In the second terminal window: 
+3. In the second terminal window: 
 `cd simple-project-tracker/client`
 `npm install`
 `npm start`

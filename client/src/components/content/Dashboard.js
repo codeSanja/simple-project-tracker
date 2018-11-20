@@ -8,10 +8,10 @@ import { fetchCards, saveCards } from '../../actions'
 import { DragDropContext } from "react-beautiful-dnd"
 import { initialState } from "../../reducers"
 import { moveCard } from "../../utils/cardsUtils"
-import savingGif from '../../img/saving.gif';
 import LogoutButton from "../auth/LogoutButton"
 
 import '../../styles/Dashboard.scss';
+import savingGif from "../../img/saving.gif";
 
 class Dashboard extends Component {
     state = {
@@ -89,7 +89,7 @@ class Dashboard extends Component {
     }
 
     render() {
-        const { cards, currentUserName, currentUserEmail, saving } = this.state
+        const { cards, currentUserName, currentUserEmail } = this.state
         const { loading } = this.props
 
         if(loading)
@@ -104,7 +104,6 @@ class Dashboard extends Component {
                         <div>{currentUserEmail}</div>
                         <LogoutButton logout={() => this.props.auth.logout('/')}/>
                     </div>
-                    {saving ? this.printLoadingIndicator(saving) : null}
 
                 </div>
                 <div className="categories">

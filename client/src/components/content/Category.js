@@ -5,6 +5,7 @@ import { isUndefined, isEqual } from 'underscore';
 import Card from "./Card";
 
 import '../../styles/Category.scss'
+import savingGif from "../../img/saving.gif";
 
 class Category extends Component {
 
@@ -26,16 +27,28 @@ class Category extends Component {
         })
     }
 
+
+    // TODO duplicate code
+    printLoadingIndicator = () => {
+        return <div className="savingStatus">
+            <img src={savingGif} width="60" height="50" />
+        </div>
+    }
+
     render() {
         const { categoryId, categoryName, cards } = this.props;
 
-        if(isUndefined(cards)){
-            return (<div>Loading...</div>)
-        }
+        if(isUndefined(cards))
+            return this.printLoadingIndicator()
+
 
         return (
             <div className="card-category">
-                <h4 className="title">{categoryName}</h4>
+                <h4 className="title">
+                    {this.printLoadingIndicator()}
+                    <div className="categoryName">{categoryName}</div>
+                    {this.printLoadingIndicator()}
+                </h4>
                     <Droppable droppableId={categoryId}>
                         {(provided) => (
                             <div

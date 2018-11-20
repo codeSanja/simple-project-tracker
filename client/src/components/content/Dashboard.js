@@ -50,13 +50,14 @@ class Dashboard extends Component {
         getCards(currentUserEmail)
     }
 
-    printCategories = (cards) => {
+    printCategories = (cards, saving) => {
         return cards.columnOrder.map((columnId, index) => {
             return <Category
                 key={index}
                 categoryId={columnId}
                 categoryName={cards.columns[columnId].title}
                 cards={cards.columns[columnId].taskIds.map( taskId =>  cards.tasks[taskId] )}
+                saving={saving}
             />
         })
     }
@@ -84,12 +85,12 @@ class Dashboard extends Component {
 
     printLoadingIndicator = () => {
         return <div className="savingStatus">
-            <img src={savingGif} width="100" height="50" />
+            <img src={savingGif} width="100" height="100" />
         </div>
     }
 
     render() {
-        const { cards, currentUserName, currentUserEmail } = this.state
+        const { cards, currentUserName, currentUserEmail, saving } = this.state
         const { loading } = this.props
 
         if(loading)
@@ -98,17 +99,21 @@ class Dashboard extends Component {
         return (
             <div className="dashboard">
                 <div className="header">
-                    <div>
-                        <Link to='/'>Home</Link><br/>
-                        <div>Welcome, {currentUserName}!</div>
-                        <div>{currentUserEmail}</div>
+                    <nav>
+                        <Link to='/'>Home</Link>
+                    </nav>
+                    {/*{saving ? this.printLoadingIndicator() : null}*/}
+                    {this.printLoadingIndicator()}
+                    <div class="userInfo">
+                        <div className="fullName">{currentUserName}</div>
+                        <div className="primaryEmail">{currentUserEmail}</div>
                         <LogoutButton logout={() => this.props.auth.logout('/')}/>
                     </div>
 
                 </div>
                 <div className="categories">
                     <DragDropContext onDragEnd={this.onDragEnd}>
-                        {this.printCategories(cards)}
+                        {this.printCategories(cards, saving)}
                     </DragDropContext>
                 </div>
                 <div className="footer"></div>

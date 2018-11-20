@@ -29,9 +29,9 @@ class Category extends Component {
 
 
     // TODO duplicate code
-    printLoadingIndicator = () => {
+    printLoadingIndicator = (savingStatus) => {
         return <div className="savingStatus">
-            <img src={savingGif} width="60" height="50" />
+            { savingStatus ? <img src={savingGif} width="60" height="50" /> : null }
         </div>
     }
 
@@ -45,9 +45,7 @@ class Category extends Component {
         return (
             <div className="card-category">
                 <h4 className="title">
-                    {this.printLoadingIndicator()}
                     <div className="categoryName">{categoryName}</div>
-                    {this.printLoadingIndicator()}
                 </h4>
                     <Droppable droppableId={categoryId}>
                         {(provided) => (
@@ -69,7 +67,8 @@ class Category extends Component {
 Category.propTypes = {
     categoryId: PropTypes.string.isRequired,
     categoryName: PropTypes.string.isRequired,
-    cards: PropTypes.array
+    cards: PropTypes.array,
+    saving: PropTypes.bool
 };
 
 export default Category;

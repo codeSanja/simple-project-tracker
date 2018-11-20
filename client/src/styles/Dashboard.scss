@@ -4,6 +4,32 @@
 
     .header {
         display: grid;
+        grid-template-columns: 30% 40% 30%;
+        margin: 0 45px;
+
+        .savingStatus {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        nav {
+            text-align: left;
+            padding-top: 30px;
+        }
+
+        .userInfo {
+            text-align: right;
+            padding-top: 30px;
+
+            .primaryEmail {
+                font-size: 12px;
+            }
+
+            * {
+                margin: 0 10px 10px 0;
+            }
+        }
     }
 
     .categories{

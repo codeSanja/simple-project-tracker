@@ -48,7 +48,7 @@ export function saveCards(email, cards) {
             .then(() => {
                 setTimeout(() => { // setTimeout is just for demonstration
                     dispatch(savedCards())
-                }, 1500);
+                }, 1000);
 
             })
             .catch(error => {

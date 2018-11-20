@@ -12,6 +12,7 @@ import LogoutButton from "../auth/LogoutButton"
 
 import '../../styles/Dashboard.scss';
 import savingGif from "../../img/saving.gif";
+import logo from "../../img/logo.png";
 
 class Dashboard extends Component {
     state = {
@@ -99,10 +100,11 @@ class Dashboard extends Component {
         return (
             <div className="dashboard">
                 <div className="header">
-                    <nav>
-                        <Link to='/'>Home</Link>
-                    </nav>
+                    <div className="logo">
+                        {/*<img src={logo} />*/}
+                    </div>
                     {this.printLoadingIndicator(saving)}
+                    {/*{this.printLoadingIndicator(true)}*/}
                     <div class="userInfo">
                         <div className="fullName">{currentUserName}</div>
                         <div className="primaryEmail">{currentUserEmail}</div>

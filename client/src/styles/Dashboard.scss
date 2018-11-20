@@ -5,21 +5,27 @@
 
 .header {
     display: grid;
-    grid-template-columns: 30% 40% 30%;
+    grid-template-columns: [left] 50% [middle] 50% [right];
+    grid-template-rows: [top] 100px [bottom];
     margin: 0 45px;
 
+    .logo {
+        padding-top: 12px;
+        background: url("../img/logo.png");
+    }
+
     .savingStatus {
+        grid-column-start: left;
+        grid-column-end: right;
+        grid-row-end: bottom;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    nav {
-        text-align: left;
-        padding-top: 30px;
-    }
-
     .userInfo {
+        grid-column-end: right;
+        grid-row-end: top;
         text-align: right;
         padding-top: 30px;
 
@@ -46,6 +52,7 @@
 @media screen and (min-width: 720px) {
     .header {
         margin: 0 10px;
+        grid-template-columns: 30% 40% 30%;
     }
 
     .categories {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
-import Home from './components/content/Home';
 import Dashboard from './components/content/Dashboard';
 import Lost from './components/content/Lost';
 import Login from './components/auth/Login';
@@ -29,8 +28,7 @@ class App extends Component {
               <div className="main-header">
               </div>
               <Switch>
-                  <Route exact path="/" component={Home} />
-                  <SecureRoute path="/dashboard" component={Dashboard} />
+                  <SecureRoute exact path="/" component={Dashboard} />
                   <Route path='/login' render={() => <Login baseUrl={baseUrl} />} />
                   <Route path='/implicit/callback' component={ImplicitCallback}/>
                   <Route component={Lost} />

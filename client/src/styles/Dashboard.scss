@@ -10,8 +10,10 @@
     margin: 0 45px;
 
     .logo {
-        padding-top: 12px;
         background: url("../img/logo.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        margin-top: 35px;
     }
 
     .savingStatus {
@@ -41,7 +43,6 @@
 
 .categories{
     display: grid;
-    margin-top: 40px;
 }
 
 .footer {

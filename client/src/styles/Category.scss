@@ -14,17 +14,8 @@
 }
 
 .title {
-    display: grid;
-    grid-template-columns: 30% 40% 30%;
-    grid-template-rows: 30px;
     margin: 0 45px;
-
-    .categoryName {
-        display: flex;
-        justify-content: center;
-        align-self: center;
-        text-align: center;
-    }
+    text-align: center;
 
     .savingStatus {
         display: flex;

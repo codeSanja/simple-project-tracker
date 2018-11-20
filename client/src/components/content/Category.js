@@ -31,7 +31,7 @@ class Category extends Component {
     // TODO duplicate code
     printLoadingIndicator = (savingStatus) => {
         return <div className="savingStatus">
-            { savingStatus ? <img src={savingGif} width="60" height="50" /> : null }
+            { savingStatus ? <img alt="loader" src={savingGif} width="60" height="50" /> : null }
         </div>
     }
 
@@ -44,21 +44,19 @@ class Category extends Component {
 
         return (
             <div className="card-category">
-                <h4 className="title">
-                    <div className="categoryName">{categoryName}</div>
-                </h4>
-                    <Droppable droppableId={categoryId}>
-                        {(provided) => (
-                            <div
-                                className="cards"
-                                ref={provided.innerRef}
-                                {...provided.droppableProps}
-                            >
-                                {this.printCards(cards)}
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
+                <h4 className="title">{categoryName}</h4>
+                <Droppable droppableId={categoryId}>
+                    {(provided) => (
+                        <div
+                            className="cards"
+                            ref={provided.innerRef}
+                            {...provided.droppableProps}
+                        >
+                            {this.printCards(cards)}
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>
             </div>
         );
     }

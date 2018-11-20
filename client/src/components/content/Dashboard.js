@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import { withAuth } from "@okta/okta-react";
-import { isUndefined } from "lodash"
 import Category from './Category'
 import { connect } from 'react-redux'
 import { fetchCards, saveCards } from '../../actions'
@@ -12,7 +10,6 @@ import LogoutButton from "../auth/LogoutButton"
 
 import '../../styles/Dashboard.scss';
 import savingGif from "../../img/saving.gif";
-import logo from "../../img/logo.png";
 
 class Dashboard extends Component {
     state = {
@@ -86,7 +83,7 @@ class Dashboard extends Component {
 
     printLoadingIndicator = (saving) => {
         return <div className="savingStatus">
-            {saving ? <img src={savingGif} width="100" height="100" /> : null}
+            {saving ? <img alt="loader" src={savingGif} width="100" height="100" /> : null}
         </div>
     }
 

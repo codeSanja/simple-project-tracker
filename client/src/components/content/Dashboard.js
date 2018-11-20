@@ -100,11 +100,8 @@ class Dashboard extends Component {
         return (
             <div className="dashboard">
                 <div className="header">
-                    <div className="logo">
-                        {/*<img src={logo} />*/}
-                    </div>
+                    <div className="logo"></div>
                     {this.printLoadingIndicator(saving)}
-                    {/*{this.printLoadingIndicator(true)}*/}
                     <div class="userInfo">
                         <div className="fullName">{currentUserName}</div>
                         <div className="primaryEmail">{currentUserEmail}</div>

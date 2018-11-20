@@ -52,8 +52,38 @@
 
 @media screen and (min-width: 720px) {
     .header {
+        grid-template-columns: [left] 30% [middle-left] 40% [middle-right] 30% [right];
+        grid-template-rows: none;
         margin: 0 10px;
-        grid-template-columns: 30% 40% 30%;
+
+        .logo {
+            background: url("../img/logo.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            margin-top: 35px;
+        }
+
+        .savingStatus {
+            grid-column-start: middle-left;
+            grid-column-end: middle-right;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .userInfo {
+            grid-column-end: right;
+            text-align: right;
+            padding-top: 30px;
+
+            .primaryEmail {
+                font-size: 12px;
+            }
+
+            * {
+                margin: 0 10px 10px 0;
+            }
+        }
     }
 
     .categories {

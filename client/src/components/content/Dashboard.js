@@ -83,9 +83,9 @@ class Dashboard extends Component {
         this.setState({cards: newCardsState, cameFromInterface: true})
     }
 
-    printLoadingIndicator = () => {
+    printLoadingIndicator = (saving) => {
         return <div className="savingStatus">
-            <img src={savingGif} width="100" height="100" />
+            {saving ? <img src={savingGif} width="100" height="100" /> : null}
         </div>
     }
 
@@ -102,8 +102,7 @@ class Dashboard extends Component {
                     <nav>
                         <Link to='/'>Home</Link>
                     </nav>
-                    {/*{saving ? this.printLoadingIndicator() : null}*/}
-                    {this.printLoadingIndicator()}
+                    {this.printLoadingIndicator(saving)}
                     <div class="userInfo">
                         <div className="fullName">{currentUserName}</div>
                         <div className="primaryEmail">{currentUserEmail}</div>

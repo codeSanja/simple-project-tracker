@@ -30,9 +30,18 @@
         grid-row-end: top;
         text-align: right;
         padding-top: 30px;
+        color: #404040;
 
         .primaryEmail {
             font-size: 12px;
+            font-style: italic;
+        }
+
+        button {
+            border-radius: 5px;
+            font-size: 12px;
+            padding: 2px 10px;
+            margin-top: 2px;
         }
 
         * {

@@ -24,7 +24,7 @@ Steps:
 `npm install`
 `npm start`
 
-Okta is used for user management. So in order for successfull register and login, your local instance have to run from `http://localhost:3000`
+Okta is used for user management. So in order for successfull register and login, your local instance has to run from `http://localhost:3000`
 
 
 ## *The work is still in progress. Please feel free to send me your comments and suggestions. Thank you!*

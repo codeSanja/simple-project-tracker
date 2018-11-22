@@ -2,9 +2,8 @@
 
 Simple Project Tracek is a Trello-like web app that forces you to *keep it simple*.
 
-![alt tag](https://lh3.googleusercontent.com/8hCulfSoN9Mw4G0H-oJxcagEJwHTP9zwOt_fTxCnVZmTganEo_quQHRTkXtBIGyHkyfZaUuixxql7ax1AOEE=w1902-h921)
-
 ![alt tag](https://lh3.googleusercontent.com/US7_NlPh6Q0T29eiqqovh4xNSf-caQ-uwP5SqKHjOPpxG28pzr-_XHEDzHHUjdQ_Sly26GOfun2htJdzk5Xk=w1902-h921-rw)
+
 
 Chek it out:
 ![alt tag](https://lh4.googleusercontent.com/ng2T1AqU2gkV5dnUNn1o51TP2AFYQpkwgRwGNHyYoLZDqO8LrE8985KntxMKX4BOmHflcfnhipL_taibow-6=w1902-h921-rw)

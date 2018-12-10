@@ -29,7 +29,7 @@ Okta is used for user management. So in order for successfull register and login
 
 ## *The work is still in progress. Please feel free to send me your comments and suggestions. Thank you!*
 
-Next feature in progress:
+Next feature in progress (using Material UI):
 ### Add new task button
 
 Chek it out (mobile):

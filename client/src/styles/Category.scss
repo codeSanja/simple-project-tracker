@@ -4,6 +4,25 @@
     max-height: 500px;
 }
 
+.card-category-header {
+    display: grid;
+    grid-template-columns: [ch-left] 15% [ch-middle] 70% [ch-right] 15%;
+    margin: 0 45px;
+
+    .category-title {
+        grid-column: ch-middle / ch-right;
+        font-style: italic;
+        color: #4e4e4e;
+        margin: 0;
+        align-self: center;
+        text-align: center;
+    }
+
+    .add-task-icon {
+        justify-self: end;
+    }
+}
+
 .cards {
     display: flex;
     flex-direction: column;
@@ -14,20 +33,12 @@
     height: 500px;
 }
 
-.title {
-    font-style: italic;
-    color: #4e4e4e;
-    margin: 0 45px;
-    text-align: center;
-
-    .savingStatus {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-}
 
 @media screen and (min-width: 720px) {
+    .card-category-header {
+        margin: 0 15px;
+    }
+
     .cards {
         margin: 10px;
     }

@@ -99,7 +99,7 @@ class Dashboard extends Component {
                 <div className="header">
                     <div className="logo"></div>
                     {this.printLoadingIndicator(saving)}
-                    <div class="userInfo">
+                    <div className="userInfo">
                         <div className="fullName">{currentUserName}</div>
                         <div className="primaryEmail">{currentUserEmail}</div>
                         <LogoutButton logout={() => this.props.auth.logout('/')}/>

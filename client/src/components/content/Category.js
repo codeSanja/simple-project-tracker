@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Droppable } from "react-beautiful-dnd"
 import { isUndefined, isEqual } from 'underscore';
+import AddTaskIcon from "./AddTaskIcon";
 import Card from "./Card";
 
 import '../../styles/Category.scss'
 import savingGif from "../../img/saving.gif";
+
 
 class Category extends Component {
 
@@ -44,7 +46,12 @@ class Category extends Component {
 
         return (
             <div className="card-category">
-                <h4 className="title">{categoryName}</h4>
+                <div className="card-category-header">
+                    <h4 className="category-title">
+                        {categoryName}
+                    </h4>
+                    <AddTaskIcon />
+                </div>
                 <Droppable droppableId={categoryId}>
                     {(provided) => (
                         <div

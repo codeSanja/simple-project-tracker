@@ -31,9 +31,6 @@ Okta is used for user management. So in order for successfull register and login
 
 Next feature in progress:
 ### Add new task button
-![alt tag](https://raw.githubusercontent.com/codeSanja/simple-project-tracker/master/screenshots/addTaskScreenshot.gif)
 
-
-Chek it out:
-
+Chek it out (mobile):
 ![alt tag](https://raw.githubusercontent.com/codeSanja/simple-project-tracker/master/screenshots/addTaskHover.gif)

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import Popover from "@material-ui/core/Popover/Popover";
 import { withStyles } from '@material-ui/core/styles';
 import InProgressCard from "./InProgressCard";
-import Popover from "@material-ui/core/Popover/Popover";
 
 const styles = theme => ({
     popover: {

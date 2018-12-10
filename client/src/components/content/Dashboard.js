@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withAuth } from "@okta/okta-react";
 import Category from './Category'
 import { connect } from 'react-redux'
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { fetchCards, saveCards } from '../../actions'
 import { DragDropContext } from "react-beautiful-dnd"
 import { initialState } from "../../reducers"
@@ -10,6 +11,12 @@ import LogoutButton from "../auth/LogoutButton"
 
 import '../../styles/Dashboard.scss';
 import savingGif from "../../img/saving.gif";
+
+const theme = createMuiTheme({
+    typography: {
+        useNextVariants: true,
+    },
+});
 
 class Dashboard extends Component {
     state = {
@@ -95,24 +102,26 @@ class Dashboard extends Component {
             return this.printLoadingIndicator()
 
         return (
-            <div className="dashboard">
-                <div className="header">
-                    <div className="logo"></div>
-                    {this.printLoadingIndicator(saving)}
-                    <div className="userInfo">
-                        <div className="fullName">{currentUserName}</div>
-                        <div className="primaryEmail">{currentUserEmail}</div>
-                        <LogoutButton logout={() => this.props.auth.logout('/')}/>
-                    </div>
+            <MuiThemeProvider theme={theme}>
+                <div className="dashboard">
+                    <div className="header">
+                        <div className="logo"></div>
+                        {this.printLoadingIndicator(saving)}
+                        <div className="userInfo">
+                            <div className="fullName">{currentUserName}</div>
+                            <div className="primaryEmail">{currentUserEmail}</div>
+                            <LogoutButton logout={() => this.props.auth.logout('/')}/>
+                        </div>
 
+                    </div>
+                    <div className="categories">
+                        <DragDropContext onDragEnd={this.onDragEnd}>
+                            {this.printCategories(cards, saving)}
+                        </DragDropContext>
+                    </div>
+                    <div className="footer"></div>
                 </div>
-                <div className="categories">
-                    <DragDropContext onDragEnd={this.onDragEnd}>
-                        {this.printCategories(cards, saving)}
-                    </DragDropContext>
-                </div>
-                <div className="footer"></div>
-            </div>
+            </MuiThemeProvider>
         );
     }
 }

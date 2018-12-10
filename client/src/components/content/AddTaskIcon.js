@@ -40,7 +40,7 @@ class AddTaskIcon extends Component {
         const { classes } = this.props;
         const open = Boolean(anchorEl);
         const popoverAlignment = {
-            vertical: 'top',
+            vertical: 'bottom',
             horizontal: 'right',
         };
 

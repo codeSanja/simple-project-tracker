@@ -37,14 +37,12 @@
             font-style: italic;
         }
 
-        button {
-            border-radius: 5px;
-            font-size: 12px;
-            padding: 2px 10px;
-            margin-top: 2px;
+        .logout-button {
+            font-size: 9px;
+            font-family: inherit;
         }
 
-        * {
+        .fullName, .primaryEmail, .logout-button {
             margin: 0 10px 10px 0;
         }
     }
@@ -85,10 +83,6 @@
 
             .primaryEmail {
                 font-size: 12px;
-            }
-
-            * {
-                margin: 0 10px 10px 0;
             }
         }
     }

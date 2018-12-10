@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Button from '@material-ui/core/Button';
 
 class LogoutButton extends Component {
 
@@ -13,7 +14,15 @@ class LogoutButton extends Component {
         const { clicked } = this.state
 
         return (
-            <button onClick={this.handleClick} disabled={clicked}>Logout</button>
+            <Button
+                className="logout-button"
+                disabled={clicked}
+                onClick={this.handleClick}
+                variant="outlined"
+                size="small"
+            >
+             Logout
+            </Button>
         );
     }
 }

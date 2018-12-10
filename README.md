@@ -33,4 +33,5 @@ Next feature in progress (using Material UI):
 ### Add new task button
 
 Chek it out (mobile):
+
 ![alt tag](https://raw.githubusercontent.com/codeSanja/simple-project-tracker/master/screenshots/addTaskHover.gif)

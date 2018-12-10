@@ -17,7 +17,7 @@ const styles = theme => ({
     }
 });
 
-class AddTaskIcon extends Component {
+class InProgressCard extends Component {
     render() {
         const { classes } = this.props;
 
@@ -39,8 +39,8 @@ class AddTaskIcon extends Component {
     };
 }
 
-AddTaskIcon.propTypes = {
+InProgressCard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AddTaskIcon);
+export default withStyles(styles)(InProgressCard);

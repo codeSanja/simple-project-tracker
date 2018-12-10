@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import Popover from '@material-ui/core/Popover';
 import { withStyles } from '@material-ui/core/styles';
-import InProgressCard from './InProgressCard';
+import InProgressCard from "./InProgressCard";
+import Popover from "@material-ui/core/Popover/Popover";
 
 const styles = theme => ({
     popover: {
@@ -37,12 +36,12 @@ class AddTaskIcon extends Component {
     };
 
     render() {
-        const { classes } = this.props;
         const { anchorEl } = this.state;
+        const { classes } = this.props;
         const open = Boolean(anchorEl);
-        const popOverAlign = {
+        const popoverAlignment = {
             vertical: 'top',
-            horizontal: 'center',
+            horizontal: 'right',
         };
 
         return [
@@ -67,9 +66,9 @@ class AddTaskIcon extends Component {
                     }}
                     open={open}
                     anchorEl={anchorEl}
-                    anchorOrigin={popOverAlign}
+                    anchorOrigin={popoverAlignment}
                     key="2"
-                    transformOrigin={popOverAlign}
+                    transformOrigin={popoverAlignment}
                     onClose={this.handlePopoverClose}
                     disableRestoreFocus
                 >
@@ -79,8 +78,5 @@ class AddTaskIcon extends Component {
     };
 }
 
-AddTaskIcon.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
 export default withStyles(styles)(AddTaskIcon);
+

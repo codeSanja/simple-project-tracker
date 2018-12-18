@@ -4,14 +4,8 @@ import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 import Dashboard from './components/content/Dashboard';
 import Lost from './components/content/Lost';
 import Login from './components/auth/Login';
+import config from './components/auth/okta.config'
 
-const baseUrl = 'https://dev-465791.oktapreview.com';
-
-const config = {
-    issuer: `${baseUrl}/oauth2/default`,
-    redirect_uri: window.location.origin + '/implicit/callback',
-    client_id: '0oah2iamzxjpMDUX80h7'
-}
 const onAuthRequired = ({history}) => {
     history.push('/login');
 }
@@ -29,7 +23,7 @@ class App extends Component {
               </div>
               <Switch>
                   <SecureRoute exact path="/" component={Dashboard} />
-                  <Route path='/login' render={() => <Login baseUrl={baseUrl} />} />
+                  <Route path='/login' render={() => <Login baseUrl={config.baseUrl} />} />
                   <Route path='/implicit/callback' component={ImplicitCallback}/>
                   <Route component={Lost} />
               </Switch>

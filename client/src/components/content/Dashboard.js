@@ -18,12 +18,12 @@ class Dashboard extends Component {
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if(prevState.cameFromInterface){
+        if(prevState.cameFromInterface){ // updating cards
             return {
                 cardsOnTheInterface: prevState.cardsOnTheInterface,
                 saving: nextProps.saving
             }
-        } else if (nextProps.cameFromDatabase){
+        } else if (nextProps.cameFromDatabase){ // first time load
             return {
                 cardsOnTheInterface: nextProps.cards,
                 cameFromInterface: false

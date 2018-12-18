@@ -4,7 +4,6 @@ import Category from './Category'
 import { connect } from 'react-redux'
 import { fetchCards, saveCards } from '../../actions'
 import { DragDropContext } from "react-beautiful-dnd"
-import { initialState } from "../../reducers"
 import { moveCard } from "../../utils/cardsUtils"
 import LogoutButton from "../auth/LogoutButton"
 
@@ -15,18 +14,18 @@ class Dashboard extends Component {
     state = {
         currentUserName: '',
         currentUserEmail: '',
-        ...initialState
+        cardsOnTheInterface: []
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if(prevState.cameFromInterface){
             return {
-                cards: prevState.cards,
+                cardsOnTheInterface: prevState.cardsOnTheInterface,
                 saving: nextProps.saving
             }
         } else if (nextProps.cameFromDatabase){
             return {
-                cards: nextProps.cards,
+                cardsOnTheInterface: nextProps.cards,
                 cameFromInterface: false
             }
         }
@@ -62,7 +61,7 @@ class Dashboard extends Component {
 
     onDragEnd = result => {
         const { destination, source } = result;
-        const { currentUserEmail, cards } = this.state
+        const { currentUserEmail, cardsOnTheInterface } = this.state
         const { saveCardsInDb } = this.props
 
         if (!destination) {
@@ -76,9 +75,9 @@ class Dashboard extends Component {
             return
         }
 
-        const newCardsState = moveCard(cards , result)
+        const newCardsState = moveCard(cardsOnTheInterface , result)
         saveCardsInDb(currentUserEmail, newCardsState)
-        this.setState({cards: newCardsState, cameFromInterface: true})
+        this.setState({cardsOnTheInterface: newCardsState, cameFromInterface: true})
     }
 
     printLoadingIndicator = (saving) => {
@@ -88,7 +87,7 @@ class Dashboard extends Component {
     }
 
     render() {
-        const { cards, currentUserName, currentUserEmail, saving } = this.state
+        const { cardsOnTheInterface, currentUserName, currentUserEmail, saving } = this.state
         const { loading } = this.props
 
         if(loading)
@@ -108,7 +107,7 @@ class Dashboard extends Component {
                 </div>
                 <div className="categories">
                     <DragDropContext onDragEnd={this.onDragEnd}>
-                        {this.printCategories(cards, saving)}
+                        {this.printCategories(cardsOnTheInterface, saving)}
                     </DragDropContext>
                 </div>
                 <div className="footer"></div>

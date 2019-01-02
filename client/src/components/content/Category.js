@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Droppable } from "react-beautiful-dnd"
 import { isUndefined, isEqual } from 'underscore';
 import AddTaskIcon from "./AddTaskIcon";
-import Card from "./Card";
+import TaskCard from "./TaskCard";
 
 import '../../styles/Category.scss'
 import savingGif from "../../img/saving.gif";
@@ -17,7 +17,7 @@ class Category extends Component {
 
     printCards = (cards) => {
         return cards.map((card, index) => {
-            return <Card
+            return <TaskCard
                 description={card.description}
                 title={card.title}
                 id={card.id}

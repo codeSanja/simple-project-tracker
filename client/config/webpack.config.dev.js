@@ -197,7 +197,7 @@ module.exports = {
             {
                 loader: "sass-loader",
                 options: {
-                    includePaths: ["/home/axy/Documents/Projects/simple-project-tracker/src/styles"]
+                    includePaths: ["/src/styles"]
                 }
             }
           ]

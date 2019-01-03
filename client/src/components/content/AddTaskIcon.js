@@ -50,13 +50,13 @@ class AddTaskIcon extends Component {
                     aria-label="Add"
                     aria-owns={open ? 'mouse-over-popover' : undefined}
                     aria-haspopup="true"
-                    className="add-task-icon"
+                    className="add-task-icon-area add-task-icon-popup"
                     color="default"
                     size="small"
                     onMouseEnter={this.handlePopoverOpen}
                     onMouseLeave={this.handlePopoverClose}
                 >
-                    <AddIcon />
+                    <AddIcon className="add-task-icon" />
                 </Fab>,
                 <Popover
                     id="mouse-over-popover"

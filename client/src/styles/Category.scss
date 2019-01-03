@@ -1,3 +1,7 @@
+.add-tack-icon {
+    border-radius: 4px;
+}
+
 .card-category {
     display: flex;
     flex-direction: column;
@@ -18,7 +22,15 @@
         text-align: center;
     }
 
+    .add-task-icon-area {
+        border-radius: 4px
+    }
+
     .add-task-icon {
+        font-size: 15px;
+    }
+
+    .add-task-icon-popup {
         justify-self: end;
     }
 }

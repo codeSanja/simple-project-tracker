@@ -5,12 +5,9 @@ import '../../styles/Card.scss';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import SvgIcon from '@material-ui/core/SvgIcon';
 import DeleteIcon from '@material-ui/icons/Delete';
-import Fab from '@material-ui/core/Fab';
 import Icon from '@material-ui/core/Icon';
 
 class TaskCard extends PureComponent {
@@ -28,19 +25,16 @@ class TaskCard extends PureComponent {
                         {...provided.dragHandleProps}
                     >
                         <Card>
-                            <CardContent>
+                            <CardContent className="card-content">
+                                <Typography variant="div" className="title">{title}</Typography>
                                 <CardActions className="actions">
-                                    <Typography className="priority" component="span" color="textSecondary" gutterBottom>
-                                        {'Priority: medium'}
-                                    </Typography>
-                                    <IconButton className="edit-tack-icon-area" aria-label="Edit">
+                                    <IconButton className="edit-task-icon-area" aria-label="Edit">
                                         <Icon>edit_icon</Icon>
                                     </IconButton>
-                                    <IconButton className="edit-tack-icon-area" aria-label="Delete">
+                                    <IconButton className="edit-task-icon-area" aria-label="Delete">
                                         <DeleteIcon />
                                     </IconButton>
                                 </CardActions>
-                                <Typography variant="h6" className="title">{title}</Typography>
                                 <Typography component="div" className="description">{description}</Typography>
                             </CardContent>
                         </Card>

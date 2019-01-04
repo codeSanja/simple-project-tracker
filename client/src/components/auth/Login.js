@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import OktaSignInWidget from './OktaSignInWidget';
 import { withAuth } from '@okta/okta-react';
 
-import '../../styles/Login.scss';
+import '../../bemStyles/Login.scss';
 
 export default withAuth(class Login extends Component {
     constructor(props) {

@@ -1,0 +1,44 @@
+.card {
+  margin: 10px;
+
+  .card-content {
+    display: grid;
+    grid-template-columns: [ch-left] 70% [ch-middle] 30% [ch-right];
+    grid-template-rows: [rw-top] 30% [rw-bottom] 70%;
+
+    .title {
+      grid-row: rw-top;
+      grid-column: ch-left;
+      font-style: italic;
+      padding: 4px;
+      margin-top: 2px;
+    }
+
+    .actions {
+      grid-row: rw-top;
+      grid-column: ch-middle;
+      display: flex;
+      justify-content: space-between;
+      padding: 0;
+
+      .edit-task-icon-area,
+      .delete-task-icon-area {
+        border-radius: 4px;
+        padding: 0;
+        align-self: baseline;
+      }
+    }
+
+    .description {
+      grid-column: ch-left / ch-right;
+      display: flex;
+      justify-content: center;
+      padding: 16px;
+      margin-top: 16px;
+      background: #f1f1f1;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #1d1d1d;
+    }
+  }
+}

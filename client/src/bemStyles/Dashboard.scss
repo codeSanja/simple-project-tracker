@@ -1,0 +1,100 @@
+.dashboard {
+    display: grid;
+    min-width: 280px;
+}
+
+.dashboardHeader {
+    display: grid;
+    grid-template-columns: [left] 50% [middle] 50% [right];
+    grid-template-rows: [top] 100px [bottom];
+    margin: 0 45px;
+
+    .dashboardHeader__logo {
+        background: url("../img/logo.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        margin-top: 35px;
+    }
+
+    .savingStatus {
+        grid-column-start: left;
+        grid-column-end: right;
+        grid-row-end: bottom;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dashboardHeader__userInfo {
+        grid-column-end: right;
+        grid-row-end: top;
+        text-align: right;
+        padding-top: 30px;
+        color: #404040;
+
+        .dashboardHeader__primaryEmail {
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        .dashboardHeader__logoutButton {
+            font-size: 9px;
+            font-family: inherit;
+        }
+
+        .dashboardHeader__fullName, .dashboardHeader__primaryEmail, .dashboardHeader__logoutButton {
+            margin: 0 10px 10px 0;
+        }
+    }
+}
+
+.categories{
+    display: grid;
+}
+
+.footer {
+}
+
+@media screen and (min-width: 720px) {
+    .header {
+        grid-template-columns: [left] 30% [middle-left] 40% [middle-right] 30% [right];
+        grid-template-rows: none;
+        margin: 0 10px;
+
+        .logo {
+            background: url("../img/logo.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            margin-top: 35px;
+        }
+
+        .savingStatus {
+            grid-column-start: middle-left;
+            grid-column-end: middle-right;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .userInfo {
+            grid-column-end: right;
+            text-align: right;
+            padding-top: 30px;
+
+            .primaryEmail {
+                font-size: 12px;
+            }
+        }
+    }
+
+    .categories {
+        grid-template-columns:  33% 33% 33%;
+        margin-top: 30px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .categories {
+        grid-template-columns: 20% 20% 20% 20% 20%;
+    }
+}

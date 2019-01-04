@@ -5,7 +5,7 @@ import { isUndefined, isEqual } from 'underscore';
 import AddTaskIcon from "./AddTaskIcon";
 import TaskCard from "./TaskCard";
 
-import '../../styles/Category.scss'
+import '../../bemStyles/Category.scss'
 import savingGif from "../../img/saving.gif";
 
 

@@ -8,7 +8,7 @@ import { DragDropContext } from "react-beautiful-dnd"
 import { moveCard } from "../../utils/cardsUtils"
 import LogoutButton from "../auth/LogoutButton"
 
-import '../../styles/Dashboard.scss';
+import '../../bemStyles/Dashboard.scss';
 import savingGif from "../../img/saving.gif";
 
 const theme = createMuiTheme({
@@ -102,12 +102,12 @@ class Dashboard extends Component {
         return (
             <MuiThemeProvider theme={theme}>
                 <div className="dashboard">
-                    <div className="header">
-                        <div className="logo"></div>
+                    <div className="dashboardHeader">
+                        <div className="dashboardHeader__logo"></div>
                         {this.printLoadingIndicator(saving)}
-                        <div className="userInfo">
-                            <div className="fullName">{currentUserName}</div>
-                            <div className="primaryEmail">{currentUserEmail}</div>
+                        <div className="dashboardHeader__userInfo">
+                            <div className="dashboardHeader__fullName">{currentUserName}</div>
+                            <div className="dashboardHeader__primaryEmail">{currentUserEmail}</div>
                             <LogoutButton logout={() => this.props.auth.logout('/')}/>
                         </div>
 

@@ -15,7 +15,7 @@ class LogoutButton extends Component {
 
         return (
             <Button
-                className="logout-button"
+                className="dashboardHeader__logoutButton"
                 disabled={clicked}
                 onClick={this.handleClick}
                 variant="outlined"

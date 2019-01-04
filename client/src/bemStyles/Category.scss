@@ -1,0 +1,57 @@
+.add-task-icon {
+    border-radius: 4px;
+}
+
+.card-category {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+}
+
+.card-category-header {
+    display: grid;
+    grid-template-columns: [ch-left] 15% [ch-middle] 70% [ch-right] 15%;
+    margin: 0 45px;
+
+    .category-title {
+        grid-column: ch-middle / ch-right;
+        font-style: italic;
+        color: #4e4e4e;
+        margin: 0;
+        align-self: center;
+        text-align: center;
+    }
+
+    .add-task-icon-area {
+        border-radius: 4px
+    }
+
+    .add-task-icon {
+        font-size: 15px;
+    }
+
+    .add-task-icon-popup {
+        justify-self: end;
+    }
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    border: solid 1px gray;
+    border-radius: 5px;
+    margin: 15px 45px;
+    overflow-y: auto;
+    height: 500px;
+}
+
+
+@media screen and (min-width: 720px) {
+    .card-category-header {
+        margin: 0 15px;
+    }
+
+    .cards {
+        margin: 10px;
+    }
+}

@@ -87,7 +87,7 @@ class Dashboard extends Component {
     }
 
     printLoadingIndicator = (saving) => {
-        return <div className="savingStatus">
+        return <div className="dashboardHeader__savingStatus">
             {saving ? <img alt="loader" src={savingGif} width="100" height="100" /> : null}
         </div>
     }

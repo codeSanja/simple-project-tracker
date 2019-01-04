@@ -32,7 +32,7 @@ class Category extends Component {
 
     // TODO duplicate code
     printLoadingIndicator = (savingStatus) => {
-        return <div className="savingStatus">
+        return <div className="dashboardHeader__savingStatus">
             { savingStatus ? <img alt="loader" src={savingGif} width="60" height="50" /> : null }
         </div>
     }
@@ -40,6 +40,7 @@ class Category extends Component {
     render() {
         const { categoryId, categoryName, cards } = this.props;
 
+        // TODO list the state up for the loader
         if(isUndefined(cards))
             return this.printLoadingIndicator()
 

@@ -16,7 +16,7 @@
         margin-top: 35px;
     }
 
-    .savingStatus {
+    .dashboardHeader__savingStatus {
         grid-column-start: left;
         grid-column-end: right;
         grid-row-end: bottom;
@@ -56,19 +56,19 @@
 }
 
 @media screen and (min-width: 720px) {
-    .header {
+    .dashboardHeader {
         grid-template-columns: [left] 30% [middle-left] 40% [middle-right] 30% [right];
         grid-template-rows: none;
         margin: 0 10px;
 
-        .logo {
+        .dashboardHeader__logo {
             background: url("../img/logo.png");
             background-repeat: no-repeat;
             background-size: contain;
             margin-top: 35px;
         }
 
-        .savingStatus {
+        .dashboardHeader__savingStatus {
             grid-column-start: middle-left;
             grid-column-end: middle-right;
             display: flex;
@@ -76,12 +76,12 @@
             justify-content: center;
         }
 
-        .userInfo {
+        .dashboardHeader__userInfo {
             grid-column-end: right;
             text-align: right;
             padding-top: 30px;
 
-            .primaryEmail {
+            .dashboardHeader__primaryEmail {
                 font-size: 12px;
             }
         }

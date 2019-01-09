@@ -10,9 +10,9 @@ import Counter from './components/content/Counter';
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 HTMLCanvasElement.prototype.getContext = () => {
-    return {
-        backingStorePixelRatio: 0
-    }
+    // return {
+    //     backingStorePixelRatio: 0
+    // }
 };
 
 const setup = (props={}, state=null) => {

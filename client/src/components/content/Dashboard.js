@@ -40,17 +40,20 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
+        // const { getCards } = this.props
+        //
+        // const oktaTokenStorage = JSON.parse(localStorage['okta-token-storage'])
+        // const { name: currentUserName, email: currentUserEmail } = oktaTokenStorage.idToken.claims
+        //
+        // this.setState({
+        //     currentUserName,
+        //     currentUserEmail
+        // })
+        //
+        // getCards(currentUserEmail)
+
         const { getCards } = this.props
-
-        const oktaTokenStorage = JSON.parse(localStorage['okta-token-storage'])
-        const { name: currentUserName, email: currentUserEmail } = oktaTokenStorage.idToken.claims
-
-        this.setState({
-            currentUserName,
-            currentUserEmail
-        })
-
-        getCards(currentUserEmail)
+        getCards('9axy6ff@gmail.com')
     }
 
     printCategories = (cards, saving) => {

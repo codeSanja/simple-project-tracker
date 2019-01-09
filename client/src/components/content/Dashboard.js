@@ -103,7 +103,7 @@ class Dashboard extends Component {
             return this.printLoadingIndicator()
 
         return (
-            <MuiThemeProvider theme={theme}>
+            <MuiThemeProvider data-test="spt-dashboard" theme={theme}>
                 <div className="dashboard">
                     <div className="header">
                         <div className="logo"></div>

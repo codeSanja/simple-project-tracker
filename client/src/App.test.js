@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux'
 import Enzyme, { mount, shallow } from 'enzyme';
 import EnzymeAdapter from 'enzyme-adapter-react-16'
+import { DragDropContext } from "react-beautiful-dnd"
+import store from './store'
 import App from './App';
+import Dashboard from './components/content/Dashboard';
 import InProgressCard from './components/content/InProgressCard';
 import Counter from './components/content/Counter';
 import Card from './components/content/Card';
-import { DragDropContext } from "react-beautiful-dnd"
+
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
@@ -25,6 +29,16 @@ const findByTestAttr = (wrapper, val) => {
 }
 
 
+it('shallow renders <Dashboard /> withouta crashing', () => {
+    const wrapper = shallow(
+        <Provider store={store}>
+            <Dashboard />
+        </Provider>
+    )
+    const appComponent = findByTestAttr(wrapper, 'spt-dashboard');
+    expect(appComponent).toBeTruthy();
+});
+
 it('shallow renders <App /> withouta crashing', () => {
     const wrapper = shallow(<App />)
     const appComponent = findByTestAttr(wrapper, 'smp-router');
@@ -39,7 +53,7 @@ it('shallow renders <Counter /> withouta crashing', () => {
 
 it('shallow renders <Card /> withouta crashing', () => {
     const props = {
-        id: 3,
+        id: '3',
         title: "testTitle",
         description: "testDesx",
         index:3
@@ -49,7 +63,6 @@ it('shallow renders <Card /> withouta crashing', () => {
         <DragDropContext onDragEnd={() => {}}>
             <Card {...props} />
         </DragDropContext>
-
     );
 
     expect(wrapper).toBeTruthy();

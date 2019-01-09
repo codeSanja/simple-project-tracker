@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 // import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 import Dashboard from './components/content/Dashboard';
 import Lost from './components/content/Lost';
+import Counter from "./components/content/Counter";
 // import Login from './components/auth/Login';
 // import config from './components/auth/okta.config'
 
@@ -13,6 +14,7 @@ const onAuthRequired = ({history}) => {
 class App extends Component {
   render() {
     return (
+    <div data-test="component-app"><Counter />
       <Router>
           {/*<Security issuer={config.issuer}*/}
                     {/*client_id={config.client_id}*/}
@@ -31,6 +33,7 @@ class App extends Component {
               <div className="main-footer"></div>
           {/*</Security>*/}</Fragment>
       </Router>
+    </div>
     );
 
   }

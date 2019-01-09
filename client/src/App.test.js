@@ -1,19 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Enzyme, { shallow } from 'enzyme';
+import Enzyme, { mount, shallow } from 'enzyme';
 import EnzymeAdapter from 'enzyme-adapter-react-16'
 import App from './App';
-// import OktaSignInWidget from './components/auth/OktaSignInWidget';
 import InProgressCard from './components/content/InProgressCard';
 import Counter from './components/content/Counter';
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
-HTMLCanvasElement.prototype.getContext = () => {
-    // return {
-    //     backingStorePixelRatio: 0
-    // }
-};
+// HTMLCanvasElement.prototype.getContext = () => {
+//
+// };
 
 const setup = (props={}, state=null) => {
     const wrapper = shallow(<App {...props} />)
@@ -21,7 +18,7 @@ const setup = (props={}, state=null) => {
     return wrapper
 }
 
-it('shallow renders <Counter /> without crashing', () => {
+it('shallow renders <Counter /> withoutaa crashing', () => {
     const wrapper = shallow(<Counter />)
     expect(wrapper).toBeTruthy();
 });
@@ -33,8 +30,30 @@ it('renders <InProgressCard /> without crashing', () => {
     ReactDOM.unmountComponentAtNode(div);
 });
 
-test('counter starts at 0', () => {
+const findByTestAttr = (wrapper, val) => {
+    return wrapper.find(`[data-test="${val}"]`);
+}
+
+test('renders without error', () => {
     const wrapper = setup();
-    const initialCounterState = wrapper.setState('counter');
-    expect(initialCounterState).toBe(0)
-})
+    const appComponent = findByTestAttr(wrapper, 'component-app');
+    console.log(appComponent)
+    expect(appComponent.length).toBe(1);
+});
+
+// test('renders increment button', () => {
+//     const wrapper = setup();
+//     const button = findByTestAttr(wrapper, 'increment-button');
+//     expect(button.length).toBe(1);
+// });
+// test('renders counter display', () => {
+//     const wrapper = setup();
+//     const counterDisplay = findByTestAttr(wrapper, 'counter-display');
+//     expect(counterDisplay.length).toBe(1);
+// });
+//
+// test('counter starts at 0', () => {
+//     // const wrapper = setup();
+//     // const initialCounterState = wrapper.state('counter');
+//     // expect(initialCounterState).toBe(0)
+// })

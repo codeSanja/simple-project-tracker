@@ -54,13 +54,26 @@ test('renders increment button', () => {
 });
 
 test('renders counter display', () => {
-    const wrapper = setup();
-    // const counterDisplay = findByTestAttr(wrapper, 'counter-display');
-    // expect(counterDisplay.length).toBe(1);
+    const wrapper = shallow(<Counter />)
+    const counterDisplay = findByTestAttr(wrapper, 'counter-display');
+    expect(counterDisplay.length).toBe(1);
 });
-//
-// test('counter starts at 0', () => {
-//     // const wrapper = setup();
-//     // const initialCounterState = wrapper.state('counter');
-//     // expect(initialCounterState).toBe(0)
-// })
+
+test('counter starts at 0', () => {
+    const wrapper = shallow(<Counter />);
+    const initialCounterState = wrapper.state('counter');
+    expect(initialCounterState).toBe(0)
+})
+
+test('clicking button increments counter display', ()=> {
+    const wrapper = shallow(<Counter />);
+    const initialCounterState = wrapper.setState({counter: 7});
+    expect(initialCounterState.state('counter')).toBe(7)
+
+    const button = findByTestAttr(wrapper, 'increment-button')
+    button.simulate('click')
+    wrapper.update();
+
+    const incrementedCounter = wrapper.state('counter')
+    expect(incrementedCounter).toBe(8)
+})

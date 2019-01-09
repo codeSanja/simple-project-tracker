@@ -143,7 +143,7 @@ const mapDispatchToProps = {
 
 Dashboard = connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(withAuth(Dashboard))
 
 export default Dashboard;

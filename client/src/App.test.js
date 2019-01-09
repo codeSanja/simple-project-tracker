@@ -5,6 +5,8 @@ import EnzymeAdapter from 'enzyme-adapter-react-16'
 import App from './App';
 import InProgressCard from './components/content/InProgressCard';
 import Counter from './components/content/Counter';
+import Card from './components/content/Card';
+import { DragDropContext } from "react-beautiful-dnd"
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
@@ -18,16 +20,41 @@ const setup = (props={}, state=null) => {
     return wrapper
 }
 
-it('shallow renders <App /> withoutaa crashing', () => {
+const findByTestAttr = (wrapper, val) => {
+    return wrapper.find(`[data-test="${val}"]`);
+}
+
+
+it('shallow renders <App /> withouta crashing', () => {
     const wrapper = shallow(<App />)
     const appComponent = findByTestAttr(wrapper, 'smp-router');
     expect(appComponent).toBeTruthy();
 });
 
 
-it('shallow renders <Counter /> withoutaa crashing', () => {
+it('shallow renders <Counter /> withouta crashing', () => {
     const wrapper = shallow(<Counter />)
     expect(wrapper).toBeTruthy();
+});
+
+it('shallow renders <Card /> withouta crashing', () => {
+    const props = {
+        id: 3,
+        title: "testTitle",
+        description: "testDesx",
+        index:3
+    }
+
+    const wrapper = mount(
+        <DragDropContext onDragEnd={() => {}}>
+            <Card {...props} />
+        </DragDropContext>
+
+    );
+
+    expect(wrapper).toBeTruthy();
+    const theCard = findByTestAttr(wrapper, 'card-title');
+    expect(theCard.text()).toBe('testTitle');
 });
 
 
@@ -36,10 +63,6 @@ it('renders <InProgressCard /> without crashing', () => {
     ReactDOM.render(<InProgressCard />, div);
     ReactDOM.unmountComponentAtNode(div);
 });
-
-const findByTestAttr = (wrapper, val) => {
-    return wrapper.find(`[data-test="${val}"]`);
-}
 
 test('renders without error', () => {
     const wrapper = setup();

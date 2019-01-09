@@ -14,7 +14,7 @@ const onAuthRequired = ({history}) => {
 class App extends Component {
   render() {
     return (
-    <div data-test="component-app"><Counter />
+    <div data-test="smp-router"><Counter />
       <Router>
           {/*<Security issuer={config.issuer}*/}
                     {/*client_id={config.client_id}*/}

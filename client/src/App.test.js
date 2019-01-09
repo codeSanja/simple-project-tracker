@@ -18,6 +18,13 @@ const setup = (props={}, state=null) => {
     return wrapper
 }
 
+it('shallow renders <App /> withoutaa crashing', () => {
+    const wrapper = shallow(<App />)
+    const appComponent = findByTestAttr(wrapper, 'smp-router');
+    expect(appComponent).toBeTruthy();
+});
+
+
 it('shallow renders <Counter /> withoutaa crashing', () => {
     const wrapper = shallow(<Counter />)
     expect(wrapper).toBeTruthy();
@@ -36,21 +43,21 @@ const findByTestAttr = (wrapper, val) => {
 
 test('renders without error', () => {
     const wrapper = setup();
-    const appComponent = findByTestAttr(wrapper, 'component-app');
-    console.log(appComponent)
+    const appComponent = findByTestAttr(wrapper, 'smp-router');
     expect(appComponent.length).toBe(1);
 });
 
-// test('renders increment button', () => {
-//     const wrapper = setup();
-//     const button = findByTestAttr(wrapper, 'increment-button');
-//     expect(button.length).toBe(1);
-// });
-// test('renders counter display', () => {
-//     const wrapper = setup();
-//     const counterDisplay = findByTestAttr(wrapper, 'counter-display');
-//     expect(counterDisplay.length).toBe(1);
-// });
+test('renders increment button', () => {
+    const wrapper = shallow(<Counter />)
+    const appComponent = findByTestAttr(wrapper, 'increment-button');
+    expect(wrapper).toBeTruthy();
+});
+
+test('renders counter display', () => {
+    const wrapper = setup();
+    // const counterDisplay = findByTestAttr(wrapper, 'counter-display');
+    // expect(counterDisplay.length).toBe(1);
+});
 //
 // test('counter starts at 0', () => {
 //     // const wrapper = setup();

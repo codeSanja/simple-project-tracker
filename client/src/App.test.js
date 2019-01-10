@@ -55,6 +55,8 @@ it('mount renders <Category /> withouta crashing', () => {
     const appComponent = wrapper.find('.category-title');
     expect(appComponent.text()).toBe('To do');
 
+    const theCards = wrapper.find('.card');
+    expect(theCards.length).toBe(2);
     // const logoutButton = findByTestAttr(wrapper, 'spt-logout-button');
     // expect(logoutButton.length).toBe(1);
 

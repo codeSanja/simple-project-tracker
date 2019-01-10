@@ -13,7 +13,7 @@ class Card extends PureComponent {
                 {(provided) => (
                     <div
                         className="card"
-                        data-test="card"
+                        data-test="spt-card"
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}

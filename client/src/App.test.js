@@ -10,7 +10,10 @@ import Dashboard from './components/content/Dashboard';
 import InProgressCard from './components/content/InProgressCard';
 import Counter from './components/content/Counter';
 import Card from './components/content/Card';
+import { withAuth } from "@okta/okta-react";
+import Category from "./components/content/Category";
 
+let cardsDb = require("./mockData/initialCardData");
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
@@ -29,14 +32,39 @@ const findByTestAttr = (wrapper, val) => {
 }
 
 
-it('shallow renders <Dashboard /> withouta crashing', () => {
-    const wrapper = shallow(
-        <Provider store={store}>
-            <Dashboard />
-        </Provider>
+// Category.propTypes = {
+//     categoryId: PropTypes.string.isRequired,
+//     categoryName: PropTypes.string.isRequired,
+//     cards: PropTypes.array,
+//     saving: PropTypes.bool
+// };
+
+it('mount renders <Category /> withouta crashing', () => {
+    const cards = cardsDb['9axy6ff@gmail.com']
+    const columnId = 'column-1'
+    const cardsInArray = cards.columns[columnId].taskIds.map( taskId =>  cards.tasks[taskId] )
+    const wrapper = mount(
+        <DragDropContext onDragEnd={() => {}}>
+            <Provider store={store}>
+                <Category cards={cardsInArray} categoryId={columnId} categoryName={'To do'} saving={false} />
+            </Provider>
+        </DragDropContext>
     )
-    const appComponent = findByTestAttr(wrapper, 'spt-dashboard');
-    expect(appComponent).toBeTruthy();
+    // const appComponent = findByTestAttr(wrapper, 'spt-dashboard');
+    // const appComponent = wrapper.find('div.cards');
+    const appComponent = wrapper.find('.category-title');
+    expect(appComponent.text()).toBe('To do');
+
+    // const logoutButton = findByTestAttr(wrapper, 'spt-logout-button');
+    // expect(logoutButton.length).toBe(1);
+
+    // logoutButton.simulate('click')
+    // wrapper.update();
+    // expect(logoutButton).toBeDisabled()
+
+    // const cardOnDashboard = findByTestAttr(wrapper, 'spt-card');
+    // expect(cardOnDashboard).toBeTruthy();
+
 });
 
 it('shallow renders <App /> withouta crashing', () => {

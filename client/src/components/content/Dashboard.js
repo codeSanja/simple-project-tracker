@@ -99,8 +99,8 @@ class Dashboard extends Component {
         const { cardsOnTheInterface, currentUserName, currentUserEmail, saving } = this.state
         const { loading } = this.props
 
-        if(loading)
-            return this.printLoadingIndicator()
+        // if(loading)
+        //     return this.printLoadingIndicator()
 
         return (
             <MuiThemeProvider data-test="spt-dashboard" theme={theme}>

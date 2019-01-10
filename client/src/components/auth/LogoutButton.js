@@ -16,6 +16,7 @@ class LogoutButton extends Component {
         return (
             <Button
                 className="logout-button"
+                data-test="spt-logout-button"
                 disabled={clicked}
                 onClick={this.handleClick}
                 variant="outlined"

@@ -47,7 +47,7 @@ class Category extends Component {
         return (
             <div className="card-category">
                 <div className="card-category-header">
-                    <h4 className="category-title">
+                    <h4 data-test="category-title" className="category-title">
                         {categoryName}
                     </h4>
                     <AddTaskIcon />

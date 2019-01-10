@@ -6,12 +6,11 @@ import EnzymeAdapter from 'enzyme-adapter-react-16'
 import { DragDropContext } from "react-beautiful-dnd"
 import store from './store'
 import App from './App';
-import Dashboard from './components/content/Dashboard';
 import InProgressCard from './components/content/InProgressCard';
 import Counter from './components/content/Counter';
 import Card from './components/content/Card';
-import { withAuth } from "@okta/okta-react";
 import Category from "./components/content/Category";
+import LogoutButton from "./components/auth/LogoutButton";
 
 let cardsDb = require("./mockData/initialCardData");
 
@@ -32,13 +31,6 @@ const findByTestAttr = (wrapper, val) => {
 }
 
 
-// Category.propTypes = {
-//     categoryId: PropTypes.string.isRequired,
-//     categoryName: PropTypes.string.isRequired,
-//     cards: PropTypes.array,
-//     saving: PropTypes.bool
-// };
-
 it('mount renders <Category /> withouta crashing', () => {
     const cards = cardsDb['9axy6ff@gmail.com']
     const columnId = 'column-1'
@@ -50,22 +42,23 @@ it('mount renders <Category /> withouta crashing', () => {
             </Provider>
         </DragDropContext>
     )
-    // const appComponent = findByTestAttr(wrapper, 'spt-dashboard');
-    // const appComponent = wrapper.find('div.cards');
-    const appComponent = wrapper.find('.category-title');
+
+    // const appComponent = wrapper.find('.category-title');
+    const appComponent = findByTestAttr(wrapper, 'category-title')
     expect(appComponent.text()).toBe('To do');
 
     const theCards = wrapper.find('.card');
     expect(theCards.length).toBe(2);
-    // const logoutButton = findByTestAttr(wrapper, 'spt-logout-button');
-    // expect(logoutButton.length).toBe(1);
 
-    // logoutButton.simulate('click')
-    // wrapper.update();
-    // expect(logoutButton).toBeDisabled()
+});
 
-    // const cardOnDashboard = findByTestAttr(wrapper, 'spt-card');
-    // expect(cardOnDashboard).toBeTruthy();
+it('mount renders <LogoutButton /> withouta crashing', () => {
+    const wrapper = mount(<LogoutButton logout={() => {}}/>)
+
+    expect(wrapper.getDOMNode().disabled).toBe(false)
+    wrapper.simulate('click')
+
+    expect(wrapper.getDOMNode().disabled).toBe(true)
 
 });
 

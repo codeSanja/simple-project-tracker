@@ -7,7 +7,6 @@ import { DragDropContext } from "react-beautiful-dnd"
 import store from './store'
 import App from './App';
 import InProgressCard from './components/content/InProgressCard';
-import Counter from './components/content/Counter';
 import Card from './components/content/Card';
 import Category from "./components/content/Category";
 import LogoutButton from "./components/auth/LogoutButton";
@@ -15,10 +14,6 @@ import LogoutButton from "./components/auth/LogoutButton";
 let cardsDb = require("./mockData/initialCardData");
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
-
-// HTMLCanvasElement.prototype.getContext = () => {
-//
-// };
 
 const setup = (props={}, state=null) => {
     const wrapper = shallow(<App {...props} />)
@@ -43,7 +38,6 @@ it('mount renders <Category /> withouta crashing', () => {
         </DragDropContext>
     )
 
-    // const appComponent = wrapper.find('.category-title');
     const appComponent = findByTestAttr(wrapper, 'category-title')
     expect(appComponent.text()).toBe('To do');
 
@@ -57,22 +51,15 @@ it('mount renders <LogoutButton /> withouta crashing', () => {
 
     expect(wrapper.getDOMNode().disabled).toBe(false)
     wrapper.simulate('click')
-
     expect(wrapper.getDOMNode().disabled).toBe(true)
 
 });
 
-it('shallow renders <App /> withouta crashing', () => {
-    const wrapper = shallow(<App />)
-    const appComponent = findByTestAttr(wrapper, 'smp-router');
-    expect(appComponent).toBeTruthy();
-});
-
-
-it('shallow renders <Counter /> withouta crashing', () => {
-    const wrapper = shallow(<Counter />)
-    expect(wrapper).toBeTruthy();
-});
+// it('shallow renders <App /> withouta crashing', () => {
+//     const wrapper = shallow(<App />)
+//     const appComponent = findByTestAttr(wrapper, 'main-header');
+//     expect(appComponent.text()).toBe('The main header');
+// });
 
 it('shallow renders <Card /> withouta crashing', () => {
     const props = {
@@ -99,40 +86,3 @@ it('renders <InProgressCard /> without crashing', () => {
     ReactDOM.render(<InProgressCard />, div);
     ReactDOM.unmountComponentAtNode(div);
 });
-
-test('renders without error', () => {
-    const wrapper = setup();
-    const appComponent = findByTestAttr(wrapper, 'smp-router');
-    expect(appComponent.length).toBe(1);
-});
-
-test('renders increment button', () => {
-    const wrapper = shallow(<Counter />)
-    const appComponent = findByTestAttr(wrapper, 'increment-button');
-    expect(wrapper).toBeTruthy();
-});
-
-test('renders counter display', () => {
-    const wrapper = shallow(<Counter />)
-    const counterDisplay = findByTestAttr(wrapper, 'counter-display');
-    expect(counterDisplay.length).toBe(1);
-});
-
-test('counter starts at 0', () => {
-    const wrapper = shallow(<Counter />);
-    const initialCounterState = wrapper.state('counter');
-    expect(initialCounterState).toBe(0)
-})
-
-test('clicking button increments counter display', ()=> {
-    const wrapper = shallow(<Counter />);
-    const initialCounterState = wrapper.setState({counter: 7});
-    expect(initialCounterState.state('counter')).toBe(7)
-
-    const button = findByTestAttr(wrapper, 'increment-button')
-    button.simulate('click')
-    wrapper.update();
-
-    const incrementedCounter = wrapper.state('counter')
-    expect(incrementedCounter).toBe(8)
-})

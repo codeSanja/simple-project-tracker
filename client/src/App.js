@@ -1,11 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
+import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 import Dashboard from './components/content/Dashboard';
 import Lost from './components/content/Lost';
-import Counter from "./components/content/Counter";
 // import Login from './components/auth/Login';
-// import config from './components/auth/okta.config'
+import config from './components/auth/okta.config'
 
 const onAuthRequired = ({history}) => {
     history.push('/login');
@@ -14,26 +13,24 @@ const onAuthRequired = ({history}) => {
 class App extends Component {
   render() {
     return (
-    <div data-test="smp-router"><Counter />
       <Router>
-          {/*<Security issuer={config.issuer}*/}
-                    {/*client_id={config.client_id}*/}
-                    {/*redirect_uri={config.redirect_uri}*/}
-                    {/*onAuthRequired={onAuthRequired}*/}
-          {/*>*/}<Fragment>
-              <div className="main-header">
+          <Security issuer={config.issuer}
+                    client_id={config.client_id}
+                    redirect_uri={config.redirect_uri}
+                    onAuthRequired={onAuthRequired}
+          >
+              <div data-test="main-header" className="main-header">
+                The main header
               </div>
               <Switch>
-                  {/*<SecureRoute exact path="/" component={Dashboard} />*/}
-                  <Route exact path="/" component={Dashboard} />
+                  <SecureRoute exact path="/" component={Dashboard} />
                   {/*<Route path='/login' render={() => <Login baseUrl={config.baseUrl} />} />*/}
-                  {/*<Route path='/implicit/callback' component={ImplicitCallback}/>*/}
+                  <Route path='/implicit/callback' component={ImplicitCallback}/>
                   <Route component={Lost} />
               </Switch>
               <div className="main-footer"></div>
-          {/*</Security>*/}</Fragment>
+          </Security>
       </Router>
-    </div>
     );
 
   }

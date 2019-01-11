@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux'
 import Enzyme, { mount, shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
 import EnzymeAdapter from 'enzyme-adapter-react-16'
 import { DragDropContext } from "react-beautiful-dnd"
 import store from './store'
@@ -55,11 +56,7 @@ it('mount renders <LogoutButton /> withouta crashing', () => {
 
 });
 
-// it('shallow renders <App /> withouta crashing', () => {
-//     const wrapper = shallow(<App />)
-//     const appComponent = findByTestAttr(wrapper, 'main-header');
-//     expect(appComponent.text()).toBe('The main header');
-// });
+// a
 
 it('shallow renders <Card /> withouta crashing', () => {
     const props = {

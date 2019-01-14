@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import Enzyme, { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import EnzymeAdapter from 'enzyme-adapter-react-16'
-import { DragDropContext } from "react-beautiful-dnd"
+import { DragDropContext, Draggable } from "react-beautiful-dnd"
 import store from './store'
 import App from './App';
 import InProgressCard from './components/content/InProgressCard';
@@ -33,9 +33,7 @@ it('mount renders <Category /> withouta crashing', () => {
     const cardsInArray = cards.columns[columnId].taskIds.map( taskId =>  cards.tasks[taskId] )
     const wrapper = mount(
         <DragDropContext onDragEnd={() => {}}>
-            <Provider store={store}>
-                <Category cards={cardsInArray} categoryId={columnId} categoryName={'To do'} saving={false} />
-            </Provider>
+            <Category store={store} cards={cardsInArray} categoryId={columnId} categoryName={'To do'} saving={false} />
         </DragDropContext>
     )
 
@@ -44,7 +42,7 @@ it('mount renders <Category /> withouta crashing', () => {
 
     const theCards = wrapper.find('.card');
     expect(theCards.length).toBe(2);
-
+    console.log(wrapper.debug())
 });
 
 it('mount renders <LogoutButton /> withouta crashing', () => {
@@ -55,8 +53,6 @@ it('mount renders <LogoutButton /> withouta crashing', () => {
     expect(wrapper.getDOMNode().disabled).toBe(true)
 
 });
-
-// a
 
 it('shallow renders <Card /> withouta crashing', () => {
     const props = {

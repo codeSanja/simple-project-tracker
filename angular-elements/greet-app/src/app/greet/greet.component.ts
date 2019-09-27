@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-greet',
+  selector: 'tastic-greet',
   templateUrl: './greet.component.html',
   styleUrls: ['./greet.component.sass']
 })

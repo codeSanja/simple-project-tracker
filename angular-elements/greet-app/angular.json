@@ -17,7 +17,7 @@
         "build": {
           "builder": "ngx-build-plus:browser",
           "options": {
-            "outputPath": "dist/greet-app",
+            "outputPath": "dist/greet-tastic",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -31,9 +31,6 @@
               "src/styles.sass"
             ],
             "scripts": [
-              {
-                "input": "node_modules/document-register-element/build/document-register-element.js"
-              },
               {
                 "input": "node_modules/document-register-element/build/document-register-element.js"
               }
@@ -61,11 +58,6 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
                 }
               ]
             }

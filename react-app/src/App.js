@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
+  constructor (props) {
+    super(props);
+
+    this.state = {
+      name: {
+        fistName: 'Dev'
+      }
+    }
+
+  }
 
   componentDidMount() {
     this.component.addEventListener('greet', this.onGreetSubmit)
@@ -12,12 +22,17 @@ class App extends Component {
   }
 
   onGreetSubmit = (e) => {
-    // console.log('onGreetSubmit - ',e, e.srcElement.children)
-
-    const name = e.srcElement.querySelector('#first-name').value
+    const firstName = e.srcElement.querySelector('#first-name').value
     const componentName = e.srcElement.querySelector('#the-component').value
 
-    console.log(`${name} - ${componentName}`)
+    console.log(`${firstName} - ${componentName}`)
+
+    this.setState({
+      name: {
+        ...this.state.name,
+        firstName
+      }
+    })
   }
 
   handleRef = (component) => {
@@ -32,7 +47,7 @@ class App extends Component {
               Angular in React app
             </p>
 
-            <tastic-greet ref={this.handleRef}></tastic-greet>
+            <tastic-greet name={this.state.name} ref={this.handleRef}></tastic-greet>
           </header>
         </div>
     );

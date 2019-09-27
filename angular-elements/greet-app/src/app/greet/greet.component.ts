@@ -16,7 +16,9 @@ export class GreetComponent implements OnInit {
   }
 
   greetSubmit() {
-    this.greet.emit(`Hi, ${this.name}`)
+    this.greet.emit(`Hi, ${this.name.firstName}`)
+    console.log('name ::', this.name)
+    this.name = this.name.firstName
   }
 
 }

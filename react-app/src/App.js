@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
+import serialijse from "serialijse";
 
 class App extends Component {
   constructor (props) {
     super(props);
 
+    const name = {
+      firstName: 'Dev'
+    }
+
+    const sName = JSON.stringify(name)
     this.state = {
-      name: {
-        fistName: 'Dev'
-      }
+      name,
+      sName
     }
 
   }
@@ -27,12 +32,24 @@ class App extends Component {
 
     console.log(`${firstName} - ${componentName}`)
 
+
+    const name = {
+      ...this.state.name,
+      firstName
+    }
+
+    const sName = serialijse.serialize(name)
+    console.log('sName', typeof sName, sName)
+
     this.setState({
       name: {
         ...this.state.name,
         firstName
-      }
+      },
+      sName
     })
+
+
   }
 
   handleRef = (component) => {
@@ -40,6 +57,9 @@ class App extends Component {
   }
 
   render() {
+
+    const { name, sName }= this.state
+
     return (
         <div className="App">
           <header className="App-header">
@@ -47,7 +67,7 @@ class App extends Component {
               Angular in React app
             </p>
 
-            <tastic-greet name={this.state.name} ref={this.handleRef}></tastic-greet>
+            <tastic-greet name={this.state.sName} ref={this.handleRef}></tastic-greet>
           </header>
         </div>
     );

@@ -8,6 +8,7 @@ import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 export class GreetComponent implements OnInit {
   @Input() name;
   @Output() greet = new EventEmitter()
+  firstName;
 
 
   constructor() { }
@@ -16,9 +17,16 @@ export class GreetComponent implements OnInit {
   }
 
   greetSubmit() {
-    this.greet.emit(`Hi, ${this.name.firstName}`)
-    console.log('name ::', this.name)
-    this.name = this.name.firstName
+    // this.greet.emit(`Hi, ${this.name.firstName}`)
+    console.log('name ::', this)
+    // this.name = this.name.firstName
+
+    console.log('Desiralised name ::', JSON.parse(this.name))
+    const nameObject = JSON.parse(this.name)
+    // this.name =
+
+    console.log('Displae first name: ', nameObject.firstName)
+    this.firstName = nameObject.firstName
   }
 
 }

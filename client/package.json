@@ -57,6 +57,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "resolve": "1.8.1",
+    "storybook": "^1.0.0",
     "style-loader": "0.23.0",
     "terser-webpack-plugin": "1.1.0",
     "url-loader": "1.1.1",
@@ -67,7 +68,10 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "chromatic": "CHROMATIC_APP_CODE=fcwd64nmsk8 chromatic test"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -79,8 +83,13 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-links": "^5.1.9",
+    "@storybook/addons": "^5.1.9",
+    "@storybook/react": "^5.1.9",
     "node-sass": "^4.9.4",
     "sass-loader": "^7.1.0",
+    "storybook-chromatic": "^1.4.0",
     "webpack": "^4.19.1"
   },
   "jest": {

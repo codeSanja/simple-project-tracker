@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
   <body>
-    <tastic-greet name="Cool dev"></tastic-greet>
+    <tastic-greet name="Cool Dev"></tastic-greet>
     <script src="zone.js"></script>
     <script src="greet-tastic.js"></script>
     <script src="greet-tastic-scripts.js.js"></script>
     <script src="greet-tastic-polyfills.js.js"></script>
+
+
+    <script>
+      const el = document.querySelector('tastic-greet')
+      el.addEventListener('greet', (e) => {
+        alert(e.detail)
+      })
+    </script>
   </body>
 </html>

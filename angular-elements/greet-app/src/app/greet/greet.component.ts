@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'tastic-greet',
@@ -7,11 +7,16 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class GreetComponent implements OnInit {
   @Input() name;
+  @Output() greet = new EventEmitter()
 
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  doGreet() {
+    this.greet.emit(`Hi, ${this.name}`)
   }
 
 }

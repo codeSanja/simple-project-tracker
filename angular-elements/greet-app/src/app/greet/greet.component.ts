@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'tastic-greet',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./greet.component.sass']
 })
 export class GreetComponent implements OnInit {
-  name = 'Sanja'
+  @Input() name;
+
 
   constructor() { }
 

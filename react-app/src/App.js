@@ -1,22 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import serialijse from "serialijse";
 
 class App extends Component {
-  constructor (props) {
-    super(props);
-
-    const name = {
-      firstName: 'Dev'
-    }
-
-    const sName = JSON.stringify(name)
-    this.state = {
-      name,
-      sName
-    }
-
-  }
 
   componentDidMount() {
     this.component.addEventListener('greet', this.onGreetSubmit)
@@ -32,24 +17,7 @@ class App extends Component {
 
     console.log(`${firstName} - ${componentName}`)
 
-
-    const name = {
-      ...this.state.name,
-      firstName
-    }
-
-    const sName = serialijse.serialize(name)
-    console.log('sName', typeof sName, sName)
-
-    this.setState({
-      name: {
-        ...this.state.name,
-        firstName
-      },
-      sName
-    })
-
-
+    this.component.firstName = firstName
   }
 
   handleRef = (component) => {
@@ -58,8 +26,6 @@ class App extends Component {
 
   render() {
 
-    const { name, sName }= this.state
-
     return (
         <div className="App">
           <header className="App-header">
@@ -67,7 +33,7 @@ class App extends Component {
               Angular in React app
             </p>
 
-            <tastic-greet name={this.state.sName} ref={this.handleRef}></tastic-greet>
+            <tastic-greet firstName='Dev' ref={this.handleRef}></tastic-greet>
           </header>
         </div>
     );

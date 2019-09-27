@@ -6,27 +6,24 @@ import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
   styleUrls: ['./greet.component.sass']
 })
 export class GreetComponent implements OnInit {
-  @Input() name;
+  @Input() firstName;
   @Output() greet = new EventEmitter()
-  firstName;
-
+  name
 
   constructor() { }
 
   ngOnInit() {
+
+    console.log('ngOnInit ::', this)
+
+    this.firstName = this.firstName
+
   }
 
-  greetSubmit() {
-    // this.greet.emit(`Hi, ${this.name.firstName}`)
-    console.log('name ::', this)
-    // this.name = this.name.firstName
+  greetSubmit(firstName) {
+    console.log('greetSubmit :: firstName', firstName)
 
-    console.log('Desiralised name ::', JSON.parse(this.name))
-    const nameObject = JSON.parse(this.name)
-    // this.name =
-
-    console.log('Displae first name: ', nameObject.firstName)
-    this.firstName = nameObject.firstName
+    this.greet.next(firstName)
   }
 
 }
